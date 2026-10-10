@@ -40,8 +40,8 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
     <div className="bg-slate-900 min-h-full p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-white">Community Builder Feed</h2>
-        <p className="text-xs sm:text-sm text-slate-400">
+        <h2 className="text-xl sm:text-2xl font-bold text-[var(--ag-text)]">Community Builder Feed</h2>
+        <p className="text-xs sm:text-sm text-[var(--ag-muted)]">
           Share what you are building at the Hyderabad bootcamp, post code snippets, and collaborate.
         </p>
       </div>
@@ -60,17 +60,17 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
               onChange={(e) => setNewPostContent(e.target.value)}
               placeholder="What are you building or exploring today at the bootcamp?"
               rows={3}
-              className="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none font-sans"
+              className="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-[var(--ag-text)] placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none font-sans"
             />
 
             {showCodeInput && (
               <div className="space-y-1">
-                <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                <div className="flex items-center justify-between text-[11px] text-[var(--ag-muted)] font-mono">
                   <span>Python / Code Snippet:</span>
                   <button
                     type="button"
                     onClick={() => setShowCodeInput(false)}
-                    className="text-slate-500 hover:text-slate-300"
+                    className="text-[var(--ag-faint)] hover:text-[var(--ag-muted)]"
                   >
                     Remove
                   </button>
@@ -80,7 +80,7 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
                   onChange={(e) => setCodeSnippet(e.target.value)}
                   placeholder={`@router.post("/query")\nasync def handle_agent_call():\n    return {"status": "ok"}`}
                   rows={4}
-                  className="w-full p-3 bg-slate-950 border border-slate-700 rounded-xl text-xs font-mono text-emerald-300 placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-none"
+                  className="w-full p-3 bg-slate-950 border border-slate-700 rounded-xl text-xs font-mono text-[var(--g-green)] placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-none"
                 />
               </div>
             )}
@@ -94,7 +94,7 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               showCodeInput
                 ? 'bg-blue-950/70 text-blue-300 border border-blue-800'
-                : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-700/50'
             }`}
           >
             <Code className="w-3.5 h-3.5" />
@@ -104,7 +104,7 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
           <button
             type="submit"
             disabled={!newPostContent.trim()}
-            className="px-5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-40 rounded-lg shadow-sm transition-colors"
+            className="px-5 py-2 text-xs font-semibold text-[var(--ag-text)] bg-blue-600 hover:bg-blue-500 disabled:opacity-40 rounded-lg shadow-sm transition-colors"
           >
             Publish Post
           </button>
@@ -132,28 +132,28 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
                     referrerPolicy="no-referrer"
                   />
                   <div>
-                    <h3 className="text-sm font-bold text-white">{post.authorName}</h3>
-                    <p className="text-xs text-slate-400">{post.authorHeadline}</p>
+                    <h3 className="text-sm font-bold text-[var(--ag-text)]">{post.authorName}</h3>
+                    <p className="text-xs text-[var(--ag-muted)]">{post.authorHeadline}</p>
                   </div>
                 </div>
-                <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+                <span className="text-[11px] font-mono text-[var(--ag-faint)] tabular-nums">
                   {post.timestamp}
                 </span>
               </div>
 
               {/* Post Body */}
-              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[var(--ag-text)] leading-relaxed">
                 {post.content}
               </p>
 
               {/* Code Snippet Box (If Present) */}
               {post.codeSnippet && (
                 <div className="rounded-xl overflow-hidden border border-slate-700 bg-slate-950">
-                  <div className="px-3 py-1.5 bg-slate-900 border-b border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                  <div className="px-3 py-1.5 bg-slate-900 border-b border-slate-800 text-[11px] font-mono text-[var(--ag-muted)] flex items-center justify-between">
                     <span>Python 3.13 / FastAPI</span>
-                    <span className="text-emerald-400">Strict Pydantic v1</span>
+                    <span className="text-[var(--g-green)]">Strict Pydantic v1</span>
                   </div>
-                  <pre className="p-3 text-xs font-mono text-emerald-300 overflow-x-auto leading-relaxed">
+                  <pre className="p-3 text-xs font-mono text-[var(--g-green)] overflow-x-auto leading-relaxed">
                     <code>{post.codeSnippet}</code>
                   </pre>
                 </div>
@@ -166,8 +166,8 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
                     onClick={() => onReactPost(post.id, 'like')}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-colors ${
                       isLiked
-                        ? 'bg-blue-600 text-white'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                        ? 'bg-blue-600 text-[var(--ag-text)]'
+                        : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-700/50'
                     }`}
                   >
                     <ThumbsUp className="w-3.5 h-3.5" />
@@ -178,8 +178,8 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
                     onClick={() => onReactPost(post.id, 'dislike')}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-colors ${
                       isDisliked
-                        ? 'bg-rose-600 text-white'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                        ? 'bg-rose-600 text-[var(--ag-text)]'
+                        : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-700/50'
                     }`}
                   >
                     <ThumbsDown className="w-3.5 h-3.5" />
@@ -188,14 +188,14 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
 
                   <button
                     onClick={() => setActiveCommentPostId(activeCommentPostId === post.id ? null : post.id)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors ml-2"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-700/50 rounded-lg transition-colors ml-2"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span className="font-mono tabular-nums">{post.comments.length} Comments</span>
                   </button>
                 </div>
 
-                <div className="text-[11px] font-mono text-slate-500">
+                <div className="text-[11px] font-mono text-[var(--ag-faint)]">
                   PostgreSQL Unique Constraint Enforced
                 </div>
               </div>
@@ -214,10 +214,10 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
                         />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-white">{c.authorName}</span>
-                            <span className="text-[10px] font-mono text-slate-500">{c.timestamp}</span>
+                            <span className="text-xs font-semibold text-[var(--ag-text)]">{c.authorName}</span>
+                            <span className="text-[10px] font-mono text-[var(--ag-faint)]">{c.timestamp}</span>
                           </div>
-                          <p className="text-xs text-slate-300 mt-0.5">{c.content}</p>
+                          <p className="text-xs text-[var(--ag-muted)] mt-0.5">{c.content}</p>
                         </div>
                       </div>
                     ))}
@@ -230,11 +230,11 @@ export const FrameCommunityFeed: React.FC<FrameCommunityFeedProps> = ({
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
                       placeholder="Write a constructive comment..."
-                      className="flex-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                      className="flex-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-[var(--ag-text)] placeholder-slate-500 focus:outline-none focus:border-blue-500"
                     />
                     <button
                       onClick={() => handleSendComment(post.id)}
-                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1"
+                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-[var(--ag-text)] rounded-lg text-xs font-semibold flex items-center gap-1"
                     >
                       <span>Reply</span>
                       <Send className="w-3 h-3" />

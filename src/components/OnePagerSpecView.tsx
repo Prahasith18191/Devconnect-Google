@@ -55,17 +55,17 @@ It solves the core friction of tech conferences: meeting attendees working with 
             <span>·</span>
             <span>GOOGLE STITCH & AI STUDIO READY</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[var(--ag-text)] tracking-tight">
             DevConnect AI — One-Pager Spec & Architecture
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
+          <p className="text-xs sm:text-sm text-[var(--ag-muted)] mt-1 max-w-3xl">
             Complete technical blueprint, layout specifications, database entity models, and Stitch prompt contracts for building the seamless event networking platform.
           </p>
         </div>
 
         <button
           onClick={handleCopy}
-          className="self-start sm:self-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm shrink-0"
+          className="self-start sm:self-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 text-[var(--ag-text)] rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm shrink-0"
         >
           {copied ? (
             <>
@@ -98,8 +98,8 @@ It solves the core friction of tech conferences: meeting attendees working with 
               onClick={() => setActiveSection(tab.id as any)}
               className={`flex items-center gap-2 px-3.5 py-2 text-xs font-medium rounded-lg whitespace-nowrap transition-colors ${
                 activeSection === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-blue-600 text-[var(--ag-text)]'
+                  : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-800'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
@@ -113,14 +113,14 @@ It solves the core friction of tech conferences: meeting attendees working with 
       {activeSection === 'overview' && (
         <div className="space-y-6">
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--ag-text)] flex items-center gap-2">
               <span className="text-blue-400 font-mono">01.</span>
               <span>Problem Statement & Product Persona</span>
             </h2>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm text-[var(--ag-muted)] leading-relaxed">
               At in-person developer conferences and bootcamps (such as <strong>Build with AI / Gemini in Hyderabad</strong>), over 250 developers gather with diverse skills. Traditional networking fails because:
             </p>
-            <ul className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
+            <ul className="grid sm:grid-cols-2 gap-3 text-xs text-[var(--ag-muted)]">
               <li className="p-3 rounded-lg bg-slate-800/40 border border-slate-700/60">
                 <strong className="text-rose-400 block mb-1">Stack Invisibility:</strong>
                 Attendees don't know who is using FastAPI, LangChain, or pgvector without awkward cold conversations.
@@ -141,11 +141,11 @@ It solves the core friction of tech conferences: meeting attendees working with 
           </div>
 
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
-            <h3 className="text-sm font-bold text-white">Event Identity Configurability</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h3 className="text-sm font-bold text-[var(--ag-text)]">Event Identity Configurability</h3>
+            <p className="text-xs text-[var(--ag-muted)] leading-relaxed">
               The event identity is completely decoupled and dynamic. Administrators can configure:
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono text-slate-300">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono text-[var(--ag-muted)]">
               <div className="p-2 bg-slate-800/50 rounded border border-slate-700">Event Title & Tagline</div>
               <div className="p-2 bg-slate-800/50 rounded border border-slate-700">Venue & City</div>
               <div className="p-2 bg-slate-800/50 rounded border border-slate-700">Agenda & Speakers</div>
@@ -159,11 +159,11 @@ It solves the core friction of tech conferences: meeting attendees working with 
       {activeSection === 'stitch' && (
         <div className="space-y-4">
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--ag-text)] flex items-center gap-2">
               <span className="text-blue-400 font-mono">02.</span>
               <span>Google Stitch Design Tool Frame Inventory</span>
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[var(--ag-muted)]">
               7 high-fidelity frames optimized for direct generation in Google Stitch and AI Studio:
             </p>
 
@@ -225,14 +225,14 @@ It solves the core friction of tech conferences: meeting attendees working with 
                       <span className="text-xs font-mono font-bold text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800/60">
                         {f.code}
                       </span>
-                      <h3 className="text-sm font-semibold text-white">{f.name}</h3>
-                      <span className="text-[11px] font-mono text-slate-400">({f.vp})</span>
+                      <h3 className="text-sm font-semibold text-[var(--ag-text)]">{f.name}</h3>
+                      <span className="text-[11px] font-mono text-[var(--ag-muted)]">({f.vp})</span>
                     </div>
-                    <div className="text-xs text-slate-300 mt-1">
-                      Components: <span className="font-mono text-slate-400">{f.components}</span>
+                    <div className="text-xs text-[var(--ag-muted)] mt-1">
+                      Components: <span className="font-mono text-[var(--ag-muted)]">{f.components}</span>
                     </div>
                   </div>
-                  <div className="text-[11px] text-emerald-400 font-mono bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-900/40">
+                  <div className="text-[11px] text-[var(--g-green)] font-mono bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-900/40">
                     Rule: {f.rule}
                   </div>
                 </div>
@@ -245,32 +245,32 @@ It solves the core friction of tech conferences: meeting attendees working with 
       {/* Tab 3: Technical Stack */}
       {activeSection === 'architecture' && (
         <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 className="text-lg font-bold text-[var(--ag-text)] flex items-center gap-2">
             <span className="text-blue-400 font-mono">03.</span>
             <span>Mandatory Technology Stack & Architectural Boundaries</span>
           </h2>
           <div className="grid sm:grid-cols-2 gap-4 text-xs">
             <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-2">
-              <h3 className="font-bold text-white text-sm">Frontend Architecture</h3>
-              <p className="text-slate-300 leading-relaxed">
+              <h3 className="font-bold text-[var(--ag-text)] text-sm">Frontend Architecture</h3>
+              <p className="text-[var(--ag-muted)] leading-relaxed">
                 React 19 with Vite 8 and TypeScript. Styled strictly with Tailwind CSS v4 and Plus Jakarta Sans. Uses a 3-zone Top Bar Contract and strictly prohibits static metadata pill boxes or ornamental telemetry bars.
               </p>
             </div>
             <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-2">
-              <h3 className="font-bold text-white text-sm">FastAPI Backend (Python 3.13)</h3>
-              <p className="text-slate-300 leading-relaxed">
+              <h3 className="font-bold text-[var(--ag-text)] text-sm">FastAPI Backend (Python 3.13)</h3>
+              <p className="text-[var(--ag-muted)] leading-relaxed">
                 Asynchronous endpoints under <code className="text-blue-300 font-mono">/api/v1</code>. Strictly adheres to Pydantic v1 schemas. Validates Supabase JWTs on every protected route. Never trusts frontend role claims.
               </p>
             </div>
             <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-2">
-              <h3 className="font-bold text-white text-sm">Supabase Persistence & Auth</h3>
-              <p className="text-slate-300 leading-relaxed">
+              <h3 className="font-bold text-[var(--ag-text)] text-sm">Supabase Persistence & Auth</h3>
+              <p className="text-[var(--ag-muted)] leading-relaxed">
                 PostgreSQL 15+ with pgvector support for semantic matchmaking. Row Level Security (RLS) on all tables. Supabase Storage for attendee avatar uploads.
               </p>
             </div>
             <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-2">
-              <h3 className="font-bold text-white text-sm">SMTP Email Pipeline</h3>
-              <p className="text-slate-300 leading-relaxed">
+              <h3 className="font-bold text-[var(--ag-text)] text-sm">SMTP Email Pipeline</h3>
+              <p className="text-[var(--ag-muted)] leading-relaxed">
                 Environment-configured SMTP (Gmail, Outlook, custom). Asynchronous background tasks dispatch emails for connection requests and acceptances without blocking database transactions.
               </p>
             </div>
@@ -281,28 +281,28 @@ It solves the core friction of tech conferences: meeting attendees working with 
       {/* Tab 4: Relational Database Schema */}
       {activeSection === 'database' && (
         <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 className="text-lg font-bold text-[var(--ag-text)] flex items-center gap-2">
             <span className="text-blue-400 font-mono">04.</span>
             <span>Relational PostgreSQL 15 Entity Schema</span>
           </h2>
           <div className="space-y-3 font-mono text-xs">
-            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-[var(--ag-muted)]">
               <strong className="text-blue-400">profiles: </strong>
               id (UUID PK, FK auth.users), full_name, headline, company, bio, avatar_url, skills (TEXT[]), interests (TEXT[]), learning (TEXT[]), experience_years, role ('attendee'|'admin'), is_suspended, created_at
             </div>
-            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-[var(--ag-muted)]">
               <strong className="text-blue-400">connection_requests: </strong>
               id (UUID PK), sender_id (FK profiles), receiver_id (FK profiles), note (VARCHAR 280), status ('pending'|'accepted'|'rejected'), UNIQUE(sender_id, receiver_id)
             </div>
-            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-[var(--ag-muted)]">
               <strong className="text-blue-400">connections: </strong>
               id (UUID PK), user_a_id (FK profiles), user_b_id (FK profiles), created_at, UNIQUE(LEAST(user_a_id, user_b_id), GREATEST(user_a_id, user_b_id))
             </div>
-            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-[var(--ag-muted)]">
               <strong className="text-blue-400">messages: </strong>
               id (UUID PK), conversation_id (FK), sender_id (FK profiles), content (TEXT), created_at
             </div>
-            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+            <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-[var(--ag-muted)]">
               <strong className="text-blue-400">posts & post_reactions: </strong>
               post_reactions: id, post_id (FK), user_id (FK), reaction ('like'|'dislike'), UNIQUE(post_id, user_id) [Guarantees single reaction invariant]
             </div>
@@ -313,35 +313,35 @@ It solves the core friction of tech conferences: meeting attendees working with 
       {/* Tab 5: REST API Contract */}
       {activeSection === 'api' && (
         <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 className="text-lg font-bold text-[var(--ag-text)] flex items-center gap-2">
             <span className="text-blue-400 font-mono">05.</span>
             <span>REST API Endpoint Blueprint (/api/v1)</span>
           </h2>
-          <div className="space-y-2 font-mono text-xs text-slate-300">
+          <div className="space-y-2 font-mono text-xs text-[var(--ag-muted)]">
             <div className="flex items-center gap-3 p-2 bg-slate-950 rounded border border-slate-800">
-              <span className="text-emerald-400 font-bold w-14">POST</span>
-              <span className="text-slate-100">/api/v1/connections/requests</span>
-              <span className="text-slate-500 ml-auto">Send connection with custom note</span>
+              <span className="text-[var(--g-green)] font-bold w-14">POST</span>
+              <span className="text-[var(--ag-text)]">/api/v1/connections/requests</span>
+              <span className="text-[var(--ag-faint)] ml-auto">Send connection with custom note</span>
             </div>
             <div className="flex items-center gap-3 p-2 bg-slate-950 rounded border border-slate-800">
               <span className="text-blue-400 font-bold w-14">POST</span>
-              <span className="text-slate-100">/api/v1/connections/requests/&#123;id&#125;/accept</span>
-              <span className="text-slate-500 ml-auto">Accept & unlock 1:1 messaging</span>
+              <span className="text-[var(--ag-text)]">/api/v1/connections/requests/&#123;id&#125;/accept</span>
+              <span className="text-[var(--ag-faint)] ml-auto">Accept & unlock 1:1 messaging</span>
             </div>
             <div className="flex items-center gap-3 p-2 bg-slate-950 rounded border border-slate-800">
               <span className="text-blue-400 font-bold w-14">GET</span>
-              <span className="text-slate-100">/api/v1/profiles?q=fastapi</span>
-              <span className="text-slate-500 ml-auto">Filter attendees by stack</span>
+              <span className="text-[var(--ag-text)]">/api/v1/profiles?q=fastapi</span>
+              <span className="text-[var(--ag-faint)] ml-auto">Filter attendees by stack</span>
             </div>
             <div className="flex items-center gap-3 p-2 bg-slate-950 rounded border border-slate-800">
-              <span className="text-emerald-400 font-bold w-14">POST</span>
-              <span className="text-slate-100">/api/v1/posts/&#123;id&#125;/reactions</span>
-              <span className="text-slate-500 ml-auto">Toggle single like/dislike</span>
+              <span className="text-[var(--g-green)] font-bold w-14">POST</span>
+              <span className="text-[var(--ag-text)]">/api/v1/posts/&#123;id&#125;/reactions</span>
+              <span className="text-[var(--ag-faint)] ml-auto">Toggle single like/dislike</span>
             </div>
             <div className="flex items-center gap-3 p-2 bg-slate-950 rounded border border-slate-800">
               <span className="text-purple-400 font-bold w-14">PUT</span>
-              <span className="text-slate-100">/api/v1/admin/events/&#123;id&#125;</span>
-              <span className="text-slate-500 ml-auto">Update event title, venue, dates</span>
+              <span className="text-[var(--ag-text)]">/api/v1/admin/events/&#123;id&#125;</span>
+              <span className="text-[var(--ag-faint)] ml-auto">Update event title, venue, dates</span>
             </div>
           </div>
         </div>
@@ -350,21 +350,21 @@ It solves the core friction of tech conferences: meeting attendees working with 
       {/* Tab 6: Security & RLS */}
       {activeSection === 'security' && (
         <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 className="text-lg font-bold text-[var(--ag-text)] flex items-center gap-2">
             <span className="text-blue-400 font-mono">06.</span>
             <span>Security Model & Row Level Security (RLS)</span>
           </h2>
-          <div className="space-y-3 text-xs text-slate-300">
+          <div className="space-y-3 text-xs text-[var(--ag-muted)]">
             <div className="p-3.5 bg-slate-800/40 rounded-xl border border-slate-700/60">
-              <strong className="text-white block mb-1">Strict Role Elevation Prevention</strong>
+              <strong className="text-[var(--ag-text)] block mb-1">Strict Role Elevation Prevention</strong>
               Public registration only creates attendee accounts. Administrator rights are provisioned exclusively via server-side database flag or service-role credential.
             </div>
             <div className="p-3.5 bg-slate-800/40 rounded-xl border border-slate-700/60">
-              <strong className="text-white block mb-1">Private Messaging Authorization</strong>
+              <strong className="text-[var(--ag-text)] block mb-1">Private Messaging Authorization</strong>
               FastAPI and Supabase RLS ensure only participants registered in <code className="text-blue-300">conversation_members</code> can read or write direct messages.
             </div>
             <div className="p-3.5 bg-slate-800/40 rounded-xl border border-slate-700/60">
-              <strong className="text-white block mb-1">Contact Privacy by Default</strong>
+              <strong className="text-[var(--ag-text)] block mb-1">Contact Privacy by Default</strong>
               Phone numbers and personal emails are redacted in public profile queries unless explicitly marked public by the user.
             </div>
           </div>

@@ -22,6 +22,9 @@ export interface AttendeeProfile {
   matchScore?: number;
   matchReasons?: string[];
   isVerified?: boolean;
+  status?: 'active' | 'suspended';
+  role?: UserRole;
+  email?: string;
 }
 
 export interface AgendaItem {

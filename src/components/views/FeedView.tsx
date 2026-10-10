@@ -50,10 +50,10 @@ export const FeedView: React.FC<FeedViewProps> = ({
     <div className="relative z-10 space-y-6 py-8 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white glow-text">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--ag-text)] glow-text">
           Community Builder Feed
         </h1>
-        <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+        <p className="text-xs sm:text-sm text-[var(--ag-muted)] mt-1">
           Share your prototypes, architectural snippets, and learnings during the Hyderabad bootcamp.
         </p>
       </div>
@@ -64,7 +64,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
           <img
             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=128&h=128&q=80"
             alt="Prahasith"
-            className="w-10 h-10 rounded-xl object-cover border border-white/20 shrink-0"
+            className="w-10 h-10 rounded-xl object-cover border border-[var(--ag-border)] shrink-0"
           />
           <div className="flex-1 space-y-2">
             <textarea
@@ -77,12 +77,12 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
             {showCode && (
               <div className="space-y-1">
-                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                <div className="flex items-center justify-between text-[11px] font-mono text-[var(--ag-muted)]">
                   <span>Python / FastAPI Code Block:</span>
                   <button
                     type="button"
                     onClick={() => setShowCode(false)}
-                    className="text-zinc-500 hover:text-white"
+                    className="text-[var(--ag-faint)] hover:text-[var(--ag-text)]"
                   >
                     Remove
                   </button>
@@ -92,21 +92,21 @@ export const FeedView: React.FC<FeedViewProps> = ({
                   onChange={(e) => setCodeSnippet(e.target.value)}
                   placeholder={`@router.post("/query")\nasync def agent_query(req: AgentRequest):\n    return await agent.run(req.prompt)`}
                   rows={4}
-                  className="w-full p-3 bg-black/70 border border-white/10 rounded-xl font-mono text-xs text-white placeholder-zinc-600 resize-none focus:outline-none focus:border-white/30"
+                  className="w-full p-3 bg-[var(--ag-bg)]/70 border border-[var(--ag-border)] rounded-xl font-mono text-xs text-[var(--ag-text)] placeholder-zinc-600 resize-none focus:outline-none focus:border-[var(--ag-border-strong)]"
                 />
               </div>
             )}
           </div>
         </div>
 
-        <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between">
+        <div className="pt-2 border-t border-[var(--ag-border)] flex items-center justify-between">
           <button
             type="button"
             onClick={() => setShowCode(!showCode)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               showCode
-                ? 'bg-white/10 text-white border border-white/20'
-                : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
+                ? 'bg-[var(--ag-surface)] text-[var(--ag-text)] border border-[var(--ag-border)]'
+                : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-[var(--ag-surface)]'
             }`}
           >
             <Code className="w-3.5 h-3.5" />
@@ -116,7 +116,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
           <button
             type="submit"
             disabled={!content.trim()}
-            className="px-5 py-2 rounded-xl bg-white text-black font-semibold text-xs hover:bg-zinc-200 disabled:opacity-40 transition-all shadow-sm"
+            className="px-5 py-2 rounded-xl bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold text-xs hover:opacity-90 disabled:opacity-40 transition-all shadow-sm"
           >
             Publish Post
           </button>
@@ -142,46 +142,46 @@ export const FeedView: React.FC<FeedViewProps> = ({
                   <img
                     src={post.authorAvatar}
                     alt={post.authorName}
-                    className="w-10 h-10 rounded-xl object-cover border border-white/15"
+                    className="w-10 h-10 rounded-xl object-cover border border-[var(--ag-border)]"
                     referrerPolicy="no-referrer"
                   />
                   <div>
-                    <h3 className="text-sm font-bold text-white">{post.authorName}</h3>
-                    <p className="text-xs text-zinc-400">{post.authorHeadline}</p>
+                    <h3 className="text-sm font-bold text-[var(--ag-text)]">{post.authorName}</h3>
+                    <p className="text-xs text-[var(--ag-muted)]">{post.authorHeadline}</p>
                   </div>
                 </div>
-                <span className="text-[11px] font-mono text-zinc-400 tabular-nums">
+                <span className="text-[11px] font-mono text-[var(--ag-muted)] tabular-nums">
                   {post.timestamp}
                 </span>
               </div>
 
               {/* Content */}
-              <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans">
+              <p className="text-xs sm:text-sm text-[var(--ag-text)] leading-relaxed font-sans">
                 {post.content}
               </p>
 
               {/* Code Snippet Box */}
               {post.codeSnippet && (
-                <div className="rounded-xl overflow-hidden border border-white/10 bg-black/80">
-                  <div className="px-3 py-1.5 bg-white/[0.03] border-b border-white/[0.06] text-[10px] font-mono text-zinc-400 flex items-center justify-between">
+                <div className="rounded-xl overflow-hidden border border-[var(--ag-border)] bg-black/80">
+                  <div className="px-3 py-1.5 bg-[var(--ag-surface)] border-b border-[var(--ag-border)] text-[10px] font-mono text-[var(--ag-muted)] flex items-center justify-between">
                     <span>Python 3.13 / FastAPI</span>
-                    <span className="text-emerald-400">Pydantic v1</span>
+                    <span className="text-[var(--g-green)]">Pydantic v1</span>
                   </div>
-                  <pre className="p-3.5 text-xs font-mono text-zinc-200 overflow-x-auto leading-relaxed">
+                  <pre className="p-3.5 text-xs font-mono text-[var(--ag-text)] overflow-x-auto leading-relaxed">
                     <code>{post.codeSnippet}</code>
                   </pre>
                 </div>
               )}
 
               {/* Reactions Bar (Single Reaction Invariant Enforced) */}
-              <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs">
+              <div className="pt-3 border-t border-[var(--ag-border)] flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onReactPost(post.id, 'like')}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-colors ${
                       isLiked
-                        ? 'bg-white text-black font-semibold'
-                        : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
+                        ? 'bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold'
+                        : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-[var(--ag-surface)]'
                     }`}
                   >
                     <ThumbsUp className="w-3.5 h-3.5" />
@@ -192,8 +192,8 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     onClick={() => onReactPost(post.id, 'dislike')}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-colors ${
                       isDisliked
-                        ? 'bg-white text-black font-semibold'
-                        : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
+                        ? 'bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold'
+                        : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-[var(--ag-surface)]'
                     }`}
                   >
                     <ThumbsDown className="w-3.5 h-3.5" />
@@ -206,39 +206,39 @@ export const FeedView: React.FC<FeedViewProps> = ({
                         activeCommentPostId === post.id ? null : post.id
                       )
                     }
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-zinc-400 hover:text-white hover:bg-white/[0.04] rounded-lg transition-colors ml-1"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-[var(--ag-surface)] rounded-lg transition-colors ml-1"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span className="font-mono tabular-nums">{post.comments.length}</span>
                   </button>
                 </div>
 
-                <div className="text-[11px] font-mono text-zinc-400 hidden sm:block">
+                <div className="text-[11px] font-mono text-[var(--ag-muted)] hidden sm:block">
                   Verified Postgres Invariant
                 </div>
               </div>
 
               {/* Comments Section */}
               {activeCommentPostId === post.id && (
-                <div className="pt-3 border-t border-white/[0.06] space-y-3">
+                <div className="pt-3 border-t border-[var(--ag-border)] space-y-3">
                   <div className="space-y-2">
                     {post.comments.map((c) => (
                       <div
                         key={c.id}
-                        className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-start gap-2.5"
+                        className="p-3 rounded-xl bg-[var(--ag-surface)] border border-[var(--ag-border)] flex items-start gap-2.5"
                       >
                         <img
                           src={c.authorAvatar}
                           alt={c.authorName}
-                          className="w-6 h-6 rounded-md object-cover border border-white/20 shrink-0 mt-0.5"
+                          className="w-6 h-6 rounded-md object-cover border border-[var(--ag-border)] shrink-0 mt-0.5"
                           referrerPolicy="no-referrer"
                         />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-white">{c.authorName}</span>
-                            <span className="text-[10px] font-mono text-zinc-400">{c.timestamp}</span>
+                            <span className="text-xs font-semibold text-[var(--ag-text)]">{c.authorName}</span>
+                            <span className="text-[10px] font-mono text-[var(--ag-muted)]">{c.timestamp}</span>
                           </div>
-                          <p className="text-xs text-zinc-300 mt-0.5">{c.content}</p>
+                          <p className="text-xs text-[var(--ag-muted)] mt-0.5">{c.content}</p>
                         </div>
                       </div>
                     ))}
@@ -255,7 +255,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     />
                     <button
                       onClick={() => handleSendComment(post.id)}
-                      className="px-3.5 py-2 bg-white text-black hover:bg-zinc-200 rounded-xl text-xs font-semibold flex items-center gap-1"
+                      className="px-3.5 py-2 bg-[var(--ag-card)] text-[var(--ag-text)] hover:opacity-90 rounded-xl text-xs font-semibold flex items-center gap-1"
                     >
                       <span>Reply</span>
                       <Send className="w-3 h-3" />

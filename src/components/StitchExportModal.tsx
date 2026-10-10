@@ -37,14 +37,14 @@ export const StitchExportModal: React.FC<StitchExportModalProps> = ({
           <div className="flex items-center gap-2.5">
             <Layers className="w-5 h-5 text-blue-400" />
             <div>
-              <h3 className="text-base font-bold text-white">Export Google Stitch Prompts</h3>
-              <p className="text-xs text-slate-400">Ready-to-paste design system prompts for Google AI Studio & Stitch Canvas.</p>
+              <h3 className="text-base font-bold text-[var(--ag-text)]">Export Google Stitch Prompts</h3>
+              <p className="text-xs text-[var(--ag-muted)]">Ready-to-paste design system prompts for Google AI Studio & Stitch Canvas.</p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+            className="p-1.5 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg hover:bg-slate-800"
           >
             <X className="w-5 h-5" />
           </button>
@@ -53,10 +53,10 @@ export const StitchExportModal: React.FC<StitchExportModalProps> = ({
         {/* Modal Body */}
         <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-300">Select Frame to Inspect / Copy:</span>
+            <span className="text-xs font-semibold text-[var(--ag-muted)]">Select Frame to Inspect / Copy:</span>
             <button
               onClick={handleCopyAll}
-              className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+              className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-[var(--ag-text)] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
             >
               {copiedAll ? (
                 <>
@@ -80,8 +80,8 @@ export const StitchExportModal: React.FC<StitchExportModalProps> = ({
                 onClick={() => setSelectedFrameId(f.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium font-mono transition-colors ${
                   selectedFrameId === f.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'
+                    ? 'bg-blue-600 text-[var(--ag-text)]'
+                    : 'bg-slate-800 text-[var(--ag-muted)] hover:text-[var(--ag-text)] border border-slate-700'
                 }`}
               >
                 {f.frameCode}
@@ -91,8 +91,8 @@ export const StitchExportModal: React.FC<StitchExportModalProps> = ({
 
           {/* Prompt Code Container */}
           <div className="rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
-            <div className="px-3.5 py-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
-              <span className="text-white font-semibold">{selectedFrame.name}</span>
+            <div className="px-3.5 py-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono text-[var(--ag-muted)]">
+              <span className="text-[var(--ag-text)] font-semibold">{selectedFrame.name}</span>
               <span>{selectedFrame.desktopDimensions}</span>
             </div>
             <pre className="p-4 text-xs font-mono text-blue-300 whitespace-pre-wrap leading-relaxed max-h-72 overflow-y-auto">
@@ -102,11 +102,11 @@ export const StitchExportModal: React.FC<StitchExportModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950/50 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div className="p-4 border-t border-slate-800 bg-slate-950/50 flex items-center justify-between text-xs text-[var(--ag-muted)] font-mono">
           <span>Formatted for Google AI Studio & Stitch Design Prompts</span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-sans font-medium"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-[var(--ag-text)] rounded-lg font-sans font-medium"
           >
             Close
           </button>

@@ -15,21 +15,21 @@ export const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div className="fixed inset-0 z-50 bg-[var(--ag-bg)]/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="glass-panel border-white/20 rounded-3xl max-w-6xl w-full h-[90vh] flex flex-col shadow-2xl bg-[#060a14]/95 overflow-hidden"
+        className="glass-panel border-[var(--ag-border)] rounded-3xl max-w-6xl w-full h-[90vh] flex flex-col shadow-2xl bg-[#060a14]/95 overflow-hidden"
       >
         {/* Modal Top Bar */}
-        <div className="p-4 sm:p-5 border-b border-white/[0.08] flex items-center justify-between shrink-0">
+        <div className="p-4 sm:p-5 border-b border-[var(--ag-border)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white font-mono text-xs font-bold">
+            <div className="w-8 h-8 rounded-lg bg-[var(--ag-surface)] border border-[var(--ag-border)] flex items-center justify-center text-[var(--ag-text)] font-mono text-xs font-bold">
               //
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">DevConnect AI Architecture & Schema</h2>
-              <p className="text-xs text-zinc-400">One-pager specification, PostgreSQL 15 DDL with RLS, and Stitch prompts.</p>
+              <h2 className="text-base font-bold text-[var(--ag-text)]">DevConnect AI Architecture & Schema</h2>
+              <p className="text-xs text-[var(--ag-muted)]">One-pager specification, PostgreSQL 15 DDL with RLS, and Stitch prompts.</p>
             </div>
           </div>
 
@@ -39,8 +39,8 @@ export const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose }) => {
                 onClick={() => setTab('spec')}
                 className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                   tab === 'spec'
-                    ? 'bg-white text-black font-semibold'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold'
+                    : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
                 }`}
               >
                 One-Pager Spec
@@ -49,8 +49,8 @@ export const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose }) => {
                 onClick={() => setTab('database')}
                 className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                   tab === 'database'
-                    ? 'bg-white text-black font-semibold'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold'
+                    : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
                 }`}
               >
                 PostgreSQL & RLS
@@ -59,7 +59,7 @@ export const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose }) => {
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10"
+              className="p-2 rounded-xl text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-[var(--ag-surface)]"
             >
               <X className="w-5 h-5" />
             </button>

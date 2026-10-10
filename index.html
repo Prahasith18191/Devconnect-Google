@@ -13,7 +13,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#0b1329] text-slate-100 antialiased font-sans selection:bg-[#1a73e8] selection:text-white">
+  <body class="bg-[var(--ag-bg)] text-[var(--ag-text)] antialiased font-sans selection:bg-[#4285F4] selection:text-white">
+    <script>
+      // No-flash theme init — set [data-theme] before React mounts.
+      (function () {
+        try {
+          var t = localStorage.getItem('devconnect_theme')
+            || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = t;
+        } catch (e) { document.documentElement.dataset.theme = 'light'; }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

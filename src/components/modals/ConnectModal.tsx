@@ -25,15 +25,15 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-[var(--ag-bg)]/85 backdrop-blur-md flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="glass-panel border-white/20 rounded-3xl max-w-md w-full p-6 space-y-5 bg-[#060a14]/90 shadow-2xl relative"
+        className="glass-panel border-[var(--ag-border)] rounded-3xl max-w-md w-full p-6 space-y-5 bg-[#060a14]/90 shadow-2xl relative"
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-white/10"
+          className="absolute top-4 right-4 p-2 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-xl hover:bg-[var(--ag-surface)]"
         >
           <X className="w-5 h-5" />
         </button>
@@ -42,17 +42,17 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
           <img
             src={attendee.avatarUrl}
             alt={attendee.fullName}
-            className="w-12 h-12 rounded-xl object-cover border border-white/20"
+            className="w-12 h-12 rounded-xl object-cover border border-[var(--ag-border)]"
           />
           <div>
-            <h3 className="text-base font-bold text-white">Connect with {attendee.fullName}</h3>
-            <p className="text-xs text-zinc-400 truncate">{attendee.company}</p>
+            <h3 className="text-base font-bold text-[var(--ag-text)]">Connect with {attendee.fullName}</h3>
+            <p className="text-xs text-[var(--ag-muted)] truncate">{attendee.company}</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-zinc-300">
+            <label className="text-xs font-medium text-[var(--ag-muted)]">
               Personalized Note (Explain why you want to connect):
             </label>
             <textarea
@@ -62,7 +62,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
               maxLength={280}
               className="w-full p-3 glass-input rounded-xl text-xs placeholder-zinc-500 font-sans resize-none"
             />
-            <div className="flex justify-between text-[11px] font-mono text-zinc-400">
+            <div className="flex justify-between text-[11px] font-mono text-[var(--ag-muted)]">
               <span>Recipient receives in-app and SMTP email alert</span>
               <span>{note.length}/280</span>
             </div>
@@ -72,13 +72,13 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-medium text-zinc-400 hover:text-white rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-medium text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-xl transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2.5 bg-white text-black hover:bg-zinc-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+              className="px-5 py-2.5 bg-[var(--ag-card)] text-[var(--ag-text)] hover:opacity-90 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Send Request</span>

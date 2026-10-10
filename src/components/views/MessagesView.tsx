@@ -96,25 +96,25 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
 
   return (
     <div className="relative z-10 py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto h-[calc(100vh-8rem)]">
-      <div className="glass-panel rounded-3xl overflow-hidden h-full flex flex-col md:flex-row border border-white/[0.08]">
+      <div className="glass-panel rounded-3xl overflow-hidden h-full flex flex-col md:flex-row border border-[var(--ag-border)]">
         {/* Left Sidebar: Conversations */}
-        <div className="w-full md:w-80 border-r border-white/[0.08] bg-black/40 flex flex-col shrink-0">
-          <div className="p-4 border-b border-white/[0.08] space-y-3">
+        <div className="w-full md:w-80 border-r border-[var(--ag-border)] bg-[var(--ag-surface)] flex flex-col shrink-0">
+          <div className="p-4 border-b border-[var(--ag-border)] space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-bold text-white">Direct Messaging</h2>
-              <span className="text-[11px] font-mono text-zinc-300 bg-white/[0.06] px-2 py-0.5 rounded-md border border-white/10">
+              <h2 className="text-sm font-bold text-[var(--ag-text)]">Direct Messaging</h2>
+              <span className="text-[11px] font-mono text-[var(--ag-muted)] bg-[var(--ag-surface)] px-2 py-0.5 rounded-md border border-[var(--ag-border)]">
                 {otherPeers.length} Attendees
               </span>
             </div>
 
             {/* Filter Tabs */}
-            <div className="flex items-center gap-1 p-1 bg-white/[0.03] rounded-xl border border-white/10">
+            <div className="flex items-center gap-1 p-1 bg-[var(--ag-surface)] rounded-xl border border-[var(--ag-border)]">
               <button
                 onClick={() => setActiveTab('all')}
                 className={`flex-1 py-1 text-xs font-medium rounded-lg transition-colors ${
                   activeTab === 'all'
-                    ? 'bg-white text-black font-semibold'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold'
+                    : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
                 }`}
               >
                 All ({otherPeers.length})
@@ -123,8 +123,8 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
                 onClick={() => setActiveTab('connected')}
                 className={`flex-1 py-1 text-xs font-medium rounded-lg transition-colors ${
                   activeTab === 'connected'
-                    ? 'bg-white text-black font-semibold'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[var(--ag-card)] text-[var(--ag-text)] font-semibold'
+                    : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
                 }`}
               >
                 Connected ({connectedPeers.length})
@@ -132,7 +132,7 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
             </div>
 
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-[var(--ag-muted)] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchPeer}
@@ -143,10 +143,10 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto divide-y divide-white/[0.04]">
+          <div className="flex-1 overflow-y-auto divide-y divide-[var(--ag-border)]">
             {filteredPeers.length === 0 ? (
               <div className="p-6 text-center space-y-3">
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-[var(--ag-muted)]">
                   {activeTab === 'connected'
                     ? 'No accepted connections yet. You can chat with any attendee by switching to "All".'
                     : 'No attendees matching search.'}
@@ -156,7 +156,7 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
                     setActiveTab('all');
                     setSearchPeer('');
                   }}
-                  className="px-3.5 py-1.5 rounded-lg bg-white text-black text-xs font-semibold hover:bg-zinc-200 transition-colors"
+                  className="px-3.5 py-1.5 rounded-lg bg-[var(--ag-invert-bg)] text-[var(--ag-invert-fg)] text-xs font-semibold hover:opacity-90 transition-opacity"
                 >
                   View All Attendees
                 </button>
@@ -171,31 +171,31 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
                     key={peer.id}
                     onClick={() => setSelectedPeerId(peer.id)}
                     className={`w-full p-4 flex items-start gap-3 text-left transition-colors ${
-                      isSelected ? 'bg-white/[0.08]' : 'hover:bg-white/[0.03]'
+                      isSelected ? 'bg-[var(--ag-surface)]' : 'hover:bg-[var(--ag-surface)]'
                     }`}
                   >
                     <div className="relative">
                       <img
                         src={peer.avatarUrl}
                         alt={peer.fullName}
-                        className="w-10 h-10 rounded-xl object-cover border border-white/15 shrink-0"
+                        className="w-10 h-10 rounded-xl object-cover border border-[var(--ag-border)] shrink-0"
                         referrerPolicy="no-referrer"
                       />
                       {isPeerConnected && (
-                        <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-black"></div>
+                        <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-[var(--g-green)] rounded-full border-2 border-[var(--ag-card)]"></div>
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white truncate">{peer.fullName}</span>
+                        <span className="text-xs font-bold text-[var(--ag-text)] truncate">{peer.fullName}</span>
                         {isPeerConnected ? (
-                          <span className="text-[10px] text-emerald-400 font-mono">Connected</span>
+                          <span className="text-[10px] text-[var(--g-green)] font-mono">Connected</span>
                         ) : (
-                          <span className="text-[10px] text-zinc-500 font-mono">Attendee</span>
+                          <span className="text-[10px] text-[var(--ag-faint)] font-mono">Attendee</span>
                         )}
                       </div>
-                      <p className="text-[11px] text-zinc-400 truncate mt-0.5">{peer.company}</p>
-                      <p className="text-[11px] text-zinc-300 truncate mt-1">
+                      <p className="text-[11px] text-[var(--ag-muted)] truncate mt-0.5">{peer.company}</p>
+                      <p className="text-[11px] text-[var(--ag-muted)] truncate mt-1">
                         {isSelected ? 'Active chat window' : 'Tap to start conversation'}
                       </p>
                     </div>
@@ -207,33 +207,33 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
         </div>
 
         {/* Right Canvas: Chat Window */}
-        <div className="flex-1 flex flex-col bg-black/20">
+        <div className="flex-1 flex flex-col bg-[var(--ag-bg)]">
           {activePeer ? (
             <>
               {/* Header */}
-              <div className="p-4 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between gap-3">
+              <div className="p-4 border-b border-[var(--ag-border)] bg-[var(--ag-surface)] flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <img
                     src={activePeer.avatarUrl}
                     alt={activePeer.fullName}
-                    className="w-10 h-10 rounded-xl object-cover border border-white/15 shrink-0"
+                    className="w-10 h-10 rounded-xl object-cover border border-[var(--ag-border)] shrink-0"
                     referrerPolicy="no-referrer"
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-sm font-bold text-white">{activePeer.fullName}</h3>
+                      <h3 className="text-sm font-bold text-[var(--ag-text)]">{activePeer.fullName}</h3>
                       {activePeer.connectionStatus === 'connected' ? (
-                        <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                        <span className="flex items-center gap-1 text-[10px] text-[var(--g-green)] font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                           <CheckCircle2 className="w-3 h-3" />
                           <span>Connected</span>
                         </span>
                       ) : (
-                        <span className="flex items-center gap-1 text-[10px] text-zinc-300 font-mono bg-white/[0.05] px-2 py-0.5 rounded-full border border-white/10">
+                        <span className="flex items-center gap-1 text-[10px] text-[var(--ag-muted)] font-mono bg-[var(--ag-surface)] px-2 py-0.5 rounded-full border border-[var(--ag-border)]">
                           <span>Direct Channel</span>
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-zinc-400 truncate max-w-md">{activePeer.headline}</p>
+                    <p className="text-xs text-[var(--ag-muted)] truncate max-w-md">{activePeer.headline}</p>
                   </div>
                 </div>
 
@@ -241,14 +241,14 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
                   {activePeer.connectionStatus !== 'connected' && onAcceptConnection && (
                     <button
                       onClick={() => onAcceptConnection(activePeer.id)}
-                      className="hidden sm:flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-xl bg-white text-black hover:bg-zinc-200 transition-colors shadow-sm"
+                      className="hidden sm:flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[var(--ag-invert-bg)] text-[var(--ag-invert-fg)] hover:opacity-90 transition-opacity shadow-sm"
                     >
                       <UserPlus className="w-3.5 h-3.5" />
                       <span>Connect Peer</span>
                     </button>
                   )}
-                  <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-zinc-400 bg-white/[0.04] px-3 py-1.5 rounded-xl border border-white/10">
-                    <Lock className="w-3 h-3 text-zinc-400" />
+                  <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-[var(--ag-muted)] bg-[var(--ag-surface)] px-3 py-1.5 rounded-xl border border-[var(--ag-border)]">
+                    <Lock className="w-3 h-3 text-[var(--ag-muted)]" />
                     <span>Supabase Live</span>
                   </div>
                 </div>
@@ -257,16 +257,16 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
               {/* Messages Body */}
               <div className="flex-1 p-4 sm:p-6 space-y-4 overflow-y-auto">
                 <div className="text-center my-2">
-                  <span className="text-[10px] font-mono text-zinc-400 bg-white/[0.04] px-3 py-1 rounded-full border border-white/10">
+                  <span className="text-[10px] font-mono text-[var(--ag-muted)] bg-[var(--ag-surface)] px-3 py-1 rounded-full border border-[var(--ag-border)]">
                     Session: Hyderabad Build with AI & Antigravity Bootcamp
                   </span>
                 </div>
 
                 {activeConversationMessages.length === 0 ? (
                   <div className="p-8 text-center space-y-3 glass-panel rounded-2xl max-w-md mx-auto my-6">
-                    <MessageSquare className="w-8 h-8 text-zinc-400 mx-auto" />
-                    <h4 className="text-sm font-semibold text-white">Start the conversation with {activePeer.fullName.split(' ')[0]}</h4>
-                    <p className="text-xs text-zinc-400">
+                    <MessageSquare className="w-8 h-8 text-[var(--ag-muted)] mx-auto" />
+                    <h4 className="text-sm font-semibold text-[var(--ag-text)]">Start the conversation with {activePeer.fullName.split(' ')[0]}</h4>
+                    <p className="text-xs text-[var(--ag-muted)]">
                       Send a message about their technical interests ({activePeer.skills?.slice(0, 2).join(', ')}) or discuss today's sessions!
                     </p>
                   </div>
@@ -284,20 +284,20 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
                         <img
                           src={msg.senderAvatar}
                           alt={msg.senderName}
-                          className="w-7 h-7 rounded-lg object-cover border border-white/15 shrink-0 mt-1"
+                          className="w-7 h-7 rounded-lg object-cover border border-[var(--ag-border)] shrink-0 mt-1"
                           referrerPolicy="no-referrer"
                         />
                         <div className={`space-y-1 ${isSelf ? 'items-end text-right' : ''}`}>
                           <div
                             className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                               isSelf
-                                ? 'bg-white text-black font-medium rounded-tr-none shadow-sm'
-                                : 'glass-panel text-white rounded-tl-none border-white/15'
+                                ? 'bg-[var(--ag-invert-bg)] text-[var(--ag-invert-fg)] font-medium rounded-tr-none shadow-sm'
+                                : 'glass-panel text-[var(--ag-text)] rounded-tl-none border-[var(--ag-border)]'
                             }`}
                           >
                             {msg.content}
                           </div>
-                          <div className="text-[10px] text-zinc-400 font-mono px-1 tabular-nums">
+                          <div className="text-[10px] text-[var(--ag-muted)] font-mono px-1 tabular-nums">
                             {msg.senderName} · {msg.timestamp}
                           </div>
                         </div>
@@ -308,7 +308,7 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
               </div>
 
               {/* Message Composer */}
-              <form onSubmit={handleSend} className="p-4 border-t border-white/[0.08] bg-black/40">
+              <form onSubmit={handleSend} className="p-4 border-t border-[var(--ag-border)] bg-[var(--ag-surface)]">
                 <div className="flex items-center gap-2">
                   <input
                     type="text"
@@ -320,7 +320,7 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
                   <button
                     type="submit"
                     disabled={!inputText.trim()}
-                    className="px-5 py-2.5 bg-white text-black hover:bg-zinc-200 disabled:opacity-40 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                    className="px-5 py-2.5 bg-[var(--ag-invert-bg)] text-[var(--ag-invert-fg)] hover:opacity-90 disabled:opacity-40 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
                   >
                     <span>Send</span>
                     <Send className="w-3.5 h-3.5" />
@@ -329,9 +329,9 @@ export const MessagesView: React.FC<MessagesViewProps> = ({
               </form>
             </>
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-zinc-400 space-y-3">
-              <h3 className="text-base font-semibold text-white">No attendee selected</h3>
-              <p className="text-xs text-zinc-400 max-w-xs">
+            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-[var(--ag-muted)] space-y-3">
+              <h3 className="text-base font-semibold text-[var(--ag-text)]">No attendee selected</h3>
+              <p className="text-xs text-[var(--ag-muted)] max-w-xs">
                 Select an attendee on the left to start direct messaging.
               </p>
             </div>

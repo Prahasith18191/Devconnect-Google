@@ -83,8 +83,8 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
       {/* Top Header & Search Controls */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white">Attendee Directory & Matcher</h2>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--ag-text)]">Attendee Directory & Matcher</h2>
+          <p className="text-xs sm:text-sm text-[var(--ag-muted)]">
             Find builders attending Build with AI Hyderabad with shared technical interests and stacks.
           </p>
         </div>
@@ -92,13 +92,13 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
         {/* Search Bar & Role Filter */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="sm:col-span-2 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[var(--ag-muted)] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name, headline, company, or skills (e.g. FastAPI, pgvector)..."
-              className="w-full pl-10 pr-4 py-2 bg-slate-800/90 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full pl-10 pr-4 py-2 bg-slate-800/90 border border-slate-700 rounded-lg text-sm text-[var(--ag-text)] placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
             />
           </div>
 
@@ -109,8 +109,8 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                 onClick={() => setSelectedRole(role)}
                 className={`flex-1 py-1 text-xs font-medium rounded transition-colors whitespace-nowrap ${
                   selectedRole === role
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-blue-600 text-[var(--ag-text)]'
+                    : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
                 }`}
               >
                 {role}
@@ -123,8 +123,8 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
         <div className="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-            <span className="text-xs font-semibold text-white">Match with your stack:</span>
-            <span className="text-xs text-slate-400">Toggle filters to re-rank builders</span>
+            <span className="text-xs font-semibold text-[var(--ag-text)]">Match with your stack:</span>
+            <span className="text-xs text-[var(--ag-muted)]">Toggle filters to re-rank builders</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5">
@@ -136,8 +136,8 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                   onClick={() => toggleStackFilter(tag)}
                   className={`px-2.5 py-1 text-xs rounded-md font-mono transition-colors ${
                     active
-                      ? 'bg-blue-600/80 text-white border border-blue-400/60'
-                      : 'bg-slate-800 text-slate-400 border border-slate-700 hover:text-white'
+                      ? 'bg-blue-600/80 text-[var(--ag-text)] border border-blue-400/60'
+                      : 'bg-slate-800 text-[var(--ag-muted)] border border-slate-700 hover:text-[var(--ag-text)]'
                   }`}
                 >
                   {tag}
@@ -149,10 +149,10 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
       </div>
 
       {/* Results Count & Match Summary */}
-      <div className="flex items-center justify-between text-xs text-slate-400">
-        <span>Showing <strong className="text-white font-mono">{filteredAttendees.length}</strong> bootcamp attendees</span>
+      <div className="flex items-center justify-between text-xs text-[var(--ag-muted)]">
+        <span>Showing <strong className="text-[var(--ag-text)] font-mono">{filteredAttendees.length}</strong> bootcamp attendees</span>
         {activeStackFilters.length > 0 && (
-          <span className="font-mono text-emerald-400">
+          <span className="font-mono text-[var(--g-green)]">
             Ranking by mutual match with: {activeStackFilters.join(', ')}
           </span>
         )}
@@ -183,18 +183,18 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                     <div className="flex items-center justify-between gap-1">
                       <h3
                         onClick={() => onSelectProfile(attendee)}
-                        className="text-sm font-semibold text-white hover:text-blue-400 cursor-pointer truncate"
+                        className="text-sm font-semibold text-[var(--ag-text)] hover:text-blue-400 cursor-pointer truncate"
                       >
                         {attendee.fullName}
                       </h3>
                       {attendee.matchScore && attendee.matchScore > 50 && (
-                        <span className="text-[11px] font-mono font-medium text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800/60 shrink-0">
+                        <span className="text-[11px] font-mono font-medium text-[var(--g-green)] bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800/60 shrink-0">
                           {attendee.matchScore}% Match
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-slate-400 truncate">{attendee.company}</div>
-                    <div className="text-xs text-slate-300 line-clamp-2 mt-1 leading-snug">
+                    <div className="text-xs text-[var(--ag-muted)] truncate">{attendee.company}</div>
+                    <div className="text-xs text-[var(--ag-muted)] line-clamp-2 mt-1 leading-snug">
                       {attendee.headline}
                     </div>
                   </div>
@@ -202,17 +202,17 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
 
                 {/* Match Reason If Available */}
                 {attendee.matchReasons && attendee.matchReasons.length > 0 && (
-                  <div className="text-[11px] text-emerald-400/90 font-mono bg-emerald-950/30 px-2 py-1 rounded border border-emerald-900/40 truncate">
+                  <div className="text-[11px] text-[var(--g-green)]/90 font-mono bg-emerald-950/30 px-2 py-1 rounded border border-emerald-900/40 truncate">
                     Both exploring: {attendee.matchReasons.slice(0, 3).join(', ')}
                   </div>
                 )}
 
                 {/* Unboxed Metadata / Skills with Typographic Separator (Anti-Slop rule) */}
-                <div className="text-xs text-slate-400 leading-relaxed">
-                  <span className="text-slate-500 font-mono text-[11px] uppercase mr-1">Skills:</span>
+                <div className="text-xs text-[var(--ag-muted)] leading-relaxed">
+                  <span className="text-[var(--ag-faint)] font-mono text-[11px] uppercase mr-1">Skills:</span>
                   {attendee.skills.slice(0, 4).map((skill, idx, arr) => (
                     <React.Fragment key={skill}>
-                      <span className="text-slate-300 font-medium">{skill}</span>
+                      <span className="text-[var(--ag-muted)] font-medium">{skill}</span>
                       {idx < arr.length - 1 && <span className="mx-1 text-slate-600">·</span>}
                     </React.Fragment>
                   ))}
@@ -223,7 +223,7 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
               <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between gap-2">
                 <button
                   onClick={() => onSelectProfile(attendee)}
-                  className="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors"
+                  className="text-xs font-medium text-[var(--ag-muted)] hover:text-[var(--ag-text)] flex items-center gap-1 transition-colors"
                 >
                   <span>View Bio</span>
                   <ExternalLink className="w-3 h-3" />
@@ -232,7 +232,7 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                 {isConnected ? (
                   <button
                     onClick={() => onNavigateToChat(attendee.id)}
-                    className="px-3 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 text-xs font-medium text-[var(--ag-text)] bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center gap-1.5 transition-colors"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span>Message</span>
@@ -248,7 +248,7 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                 ) : isReceived ? (
                   <button
                     onClick={() => onSendConnectionRequest(attendee.id, 'Accepted!')}
-                    className="px-3 py-1.5 text-xs font-medium text-emerald-300 bg-emerald-950/60 border border-emerald-800/60 hover:bg-emerald-900/70 rounded-lg flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 text-xs font-medium text-[var(--g-green)] bg-emerald-950/60 border border-emerald-800/60 hover:bg-emerald-900/70 rounded-lg flex items-center gap-1.5 transition-colors"
                   >
                     <Check className="w-3.5 h-3.5" />
                     <span>Accept Request</span>
@@ -256,7 +256,7 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                 ) : (
                   <button
                     onClick={() => handleOpenConnect(attendee)}
-                    className="px-3 py-1.5 text-xs font-semibold text-white bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 text-xs font-semibold text-[var(--ag-text)] bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center gap-1.5 transition-colors"
                   >
                     <UserPlus className="w-3.5 h-3.5" />
                     <span>Connect</span>
@@ -270,7 +270,7 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
 
       {/* Connect Modal with Custom Note */}
       {connectingAttendee && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-[var(--ag-bg)]/70 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-md w-full space-y-4 shadow-2xl">
             <div className="flex items-center gap-3">
               <img
@@ -279,13 +279,13 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                 className="w-12 h-12 rounded-lg object-cover border border-slate-600"
               />
               <div>
-                <h3 className="text-base font-bold text-white">Connect with {connectingAttendee.fullName}</h3>
-                <p className="text-xs text-slate-400">{connectingAttendee.headline}</p>
+                <h3 className="text-base font-bold text-[var(--ag-text)]">Connect with {connectingAttendee.fullName}</h3>
+                <p className="text-xs text-[var(--ag-muted)]">{connectingAttendee.headline}</p>
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">
+              <label className="text-xs font-medium text-[var(--ag-muted)]">
                 Add a personal note (explaining why you want to connect):
               </label>
               <textarea
@@ -293,9 +293,9 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
                 onChange={(e) => setConnectionNote(e.target.value)}
                 rows={3}
                 maxLength={280}
-                className="w-full p-3 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 font-sans"
+                className="w-full p-3 bg-slate-900 border border-slate-700 rounded-lg text-xs text-[var(--ag-text)] placeholder-slate-500 focus:outline-none focus:border-blue-500 font-sans"
               />
-              <div className="flex justify-between text-[11px] text-slate-500 font-mono">
+              <div className="flex justify-between text-[11px] text-[var(--ag-faint)] font-mono">
                 <span>Recipient will receive in-app and SMTP email alert</span>
                 <span>{connectionNote.length}/280</span>
               </div>
@@ -304,13 +304,13 @@ export const FrameDirectory: React.FC<FrameDirectoryProps> = ({
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setConnectingAttendee(null)}
-                className="px-4 py-2 text-xs font-medium text-slate-400 hover:text-white rounded-lg transition-colors"
+                className="px-4 py-2 text-xs font-medium text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmConnect}
-                className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm transition-colors"
+                className="px-4 py-2 text-xs font-semibold text-[var(--ag-text)] bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm transition-colors"
               >
                 Send Request
               </button>

@@ -86,10 +86,10 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
           <span>Algorithmic Matchmaking Engine</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ag-text)] tracking-tight">
           Developer Technical Interest Matcher
         </h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
+        <p className="text-xs sm:text-sm text-[var(--ag-muted)] mt-1 max-w-2xl">
           DevConnect AI calculates semantic overlap across technical stack, database choices, and AI exploration goals to connect developers with the highest collaboration potential.
         </p>
       </div>
@@ -97,16 +97,16 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
       {/* Interactive Controls: User's Profile Config */}
       <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
+          <h3 className="text-sm font-bold text-[var(--ag-text)] flex items-center gap-2">
             <Cpu className="w-4 h-4 text-blue-400" />
             <span>Configure Your Current Builder Stack & Goals</span>
           </h3>
-          <span className="text-xs font-mono text-slate-400">Live Scored</span>
+          <span className="text-xs font-mono text-[var(--ag-muted)]">Live Scored</span>
         </div>
 
         {/* Skill Selector */}
         <div className="space-y-2">
-          <span className="text-xs font-semibold text-slate-300">1. Your Core Tech Stack:</span>
+          <span className="text-xs font-semibold text-[var(--ag-muted)]">1. Your Core Tech Stack:</span>
           <div className="flex flex-wrap gap-2">
             {allSkills.map((skill) => {
               const active = selectedSkills.includes(skill);
@@ -116,8 +116,8 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
                   onClick={() => toggleSkill(skill)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
                     active
-                      ? 'bg-blue-600 text-white shadow-xs'
-                      : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'
+                      ? 'bg-blue-600 text-[var(--ag-text)] shadow-xs'
+                      : 'bg-slate-800 text-[var(--ag-muted)] hover:text-[var(--ag-text)] border border-slate-700'
                   }`}
                 >
                   {skill}
@@ -129,7 +129,7 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
 
         {/* Interest Selector */}
         <div className="space-y-2">
-          <span className="text-xs font-semibold text-slate-300">2. What are you building or researching today?</span>
+          <span className="text-xs font-semibold text-[var(--ag-muted)]">2. What are you building or researching today?</span>
           <div className="flex flex-wrap gap-2">
             {allInterests.map((interest) => {
               const active = selectedInterests.includes(interest);
@@ -139,8 +139,8 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
                   onClick={() => toggleInterest(interest)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
                     active
-                      ? 'bg-emerald-600 text-white shadow-xs'
-                      : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'
+                      ? 'bg-emerald-600 text-[var(--ag-text)] shadow-xs'
+                      : 'bg-slate-800 text-[var(--ag-muted)] hover:text-[var(--ag-text)] border border-slate-700'
                   }`}
                 >
                   {interest}
@@ -153,9 +153,9 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
 
       {/* Ranked Match Results */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="flex items-center justify-between text-xs text-[var(--ag-muted)]">
           <span>Ranked peer recommendations for Hyderabad Bootcamp</span>
-          <span className="font-mono text-emerald-400">
+          <span className="font-mono text-[var(--g-green)]">
             {rankedAttendees.filter((a) => a.matchScore >= 70).length} High-Affinity Matches
           </span>
         </div>
@@ -177,45 +177,45 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
                     <div className="flex items-center justify-between">
                       <h4
                         onClick={() => onSelectProfile(peer)}
-                        className="text-sm font-bold text-white hover:text-blue-400 cursor-pointer truncate"
+                        className="text-sm font-bold text-[var(--ag-text)] hover:text-blue-400 cursor-pointer truncate"
                       >
                         {peer.fullName}
                       </h4>
-                      <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-950/70 border border-emerald-800 text-emerald-400 font-mono text-xs font-bold">
+                      <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-950/70 border border-emerald-800 text-[var(--g-green)] font-mono text-xs font-bold">
                         <span>{peer.matchScore}%</span>
-                        <span className="text-[10px] text-emerald-500 font-normal">Match</span>
+                        <span className="text-[10px] text-[var(--g-green)] font-normal">Match</span>
                       </div>
                     </div>
-                    <p className="text-xs text-slate-400 truncate">{peer.headline}</p>
-                    <p className="text-[11px] text-slate-500 font-mono mt-0.5">{peer.company}</p>
+                    <p className="text-xs text-[var(--ag-muted)] truncate">{peer.headline}</p>
+                    <p className="text-[11px] text-[var(--ag-faint)] font-mono mt-0.5">{peer.company}</p>
                   </div>
                 </div>
 
                 {/* Match Reason Pills */}
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1.5 text-xs">
-                  <div className="text-emerald-400 font-mono text-[11px] flex items-center gap-1.5">
+                  <div className="text-[var(--g-green)] font-mono text-[11px] flex items-center gap-1.5">
                     <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
                     <span>Why you should connect:</span>
                   </div>
-                  <div className="text-slate-300 text-[11px] leading-relaxed">
+                  <div className="text-[var(--ag-muted)] text-[11px] leading-relaxed">
                     {peer.matchingSkills.length > 0 && (
                       <div>
-                        Shared Stacks: <strong className="text-white">{peer.matchingSkills.join(', ')}</strong>
+                        Shared Stacks: <strong className="text-[var(--ag-text)]">{peer.matchingSkills.join(', ')}</strong>
                       </div>
                     )}
                     {peer.matchingInterests.length > 0 && (
-                      <div className="text-slate-400">
-                        Mutual Focus: <strong className="text-emerald-300">{peer.matchingInterests.join(', ')}</strong>
+                      <div className="text-[var(--ag-muted)]">
+                        Mutual Focus: <strong className="text-[var(--g-green)]">{peer.matchingInterests.join(', ')}</strong>
                       </div>
                     )}
                   </div>
                 </div>
 
                 {/* Skills unboxed with dots */}
-                <div className="text-xs text-slate-400">
+                <div className="text-xs text-[var(--ag-muted)]">
                   {peer.skills.map((skill, idx, arr) => (
                     <span key={skill}>
-                      <span className={peer.matchingSkills.includes(skill) ? 'text-blue-300 font-semibold' : 'text-slate-400'}>
+                      <span className={peer.matchingSkills.includes(skill) ? 'text-blue-300 font-semibold' : 'text-[var(--ag-muted)]'}>
                         {skill}
                       </span>
                       {idx < arr.length - 1 && <span className="mx-1 text-slate-600">·</span>}
@@ -228,14 +228,14 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
               <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
                 <button
                   onClick={() => onSelectProfile(peer)}
-                  className="text-xs text-slate-400 hover:text-white flex items-center gap-1"
+                  className="text-xs text-[var(--ag-muted)] hover:text-[var(--ag-text)] flex items-center gap-1"
                 >
                   <span>View Projects & Bio</span>
                   <ExternalLink className="w-3 h-3" />
                 </button>
 
                 {peer.connectionStatus === 'connected' ? (
-                  <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                  <span className="text-xs font-mono text-[var(--g-green)] flex items-center gap-1">
                     <Check className="w-3.5 h-3.5" />
                     <span>Connected</span>
                   </span>
@@ -247,7 +247,7 @@ export const InterestMatcherDemo: React.FC<InterestMatcherDemoProps> = ({
                         `Hey ${peer.fullName.split(' ')[0]}! Saw we're both building with ${selectedSkills[0]} at the bootcamp. Let's connect!`
                       )
                     }
-                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-[var(--ag-text)] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
                   >
                     <UserPlus className="w-3.5 h-3.5" />
                     <span>Quick Connect</span>

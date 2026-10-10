@@ -104,6 +104,9 @@ export async function getAttendees(): Promise<AttendeeProfile[]> {
         linkedinUrl: d.linkedin_url || d.linkedinUrl,
         connectionStatus: (d.connection_status || d.connectionStatus || 'none') as 'none' | 'pending_sent' | 'pending_received' | 'connected',
         isVerified: d.is_verified ?? true,
+        status: (d.status === 'suspended' ? 'suspended' : 'active') as 'active' | 'suspended',
+        role: (d.role === 'admin' ? 'admin' : 'attendee') as 'attendee' | 'admin',
+        email: d.email || undefined,
       }));
       localStorage.setItem(STORAGE_KEYS.ATTENDEES, JSON.stringify(mapped));
       return mapped;
@@ -172,9 +175,55 @@ export async function updateAttendeeConnectionStatus(attendeeId: string, status:
 
 export async function toggleSuspendAttendee(attendeeId: string, isSuspended: boolean): Promise<void> {
   try {
-    await supabase.from('profiles').update({ is_verified: !isSuspended }).eq('id', attendeeId);
+    await supabase.from('profiles')
+      .update({ status: isSuspended ? 'suspended' : 'active', is_verified: !isSuspended })
+      .eq('id', attendeeId);
   } catch (err) {
     console.warn('Supabase toggleSuspendAttendee error:', err);
+  }
+}
+
+// ========================================================
+// 2b. EVENT RECAP PHOTOS (admin-managed carousel)
+// ========================================================
+export interface EventPhoto { id: string; url: string; caption: string; }
+
+export async function getEventPhotos(): Promise<EventPhoto[]> {
+  try {
+    const { data, error } = await supabase
+      .from('event_photos').select('*').order('sort_order', { ascending: true });
+    if (!error && Array.isArray(data)) {
+      return data.map((d: any) => ({ id: d.id, url: d.url, caption: d.caption || '' }));
+    }
+  } catch (err) {
+    console.warn('Supabase getEventPhotos fallback:', err);
+  }
+  return [];
+}
+
+/** Uploads an image to the public `post-media` bucket and records it in event_photos. */
+export async function addEventPhoto(file: File, caption = ''): Promise<EventPhoto | null> {
+  try {
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    const path = `event/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error: upErr } = await supabase.storage.from('post-media').upload(path, file, { upsert: true });
+    if (upErr) { console.warn('event photo upload', upErr.message); return null; }
+    const url = supabase.storage.from('post-media').getPublicUrl(path).data.publicUrl;
+    const { data, error } = await supabase
+      .from('event_photos').insert({ url, caption, sort_order: Date.now() % 100000 }).select('*').single();
+    if (error || !data) return null;
+    return { id: data.id, url: data.url, caption: data.caption || '' };
+  } catch (err) {
+    console.warn('addEventPhoto error:', err);
+    return null;
+  }
+}
+
+export async function deleteEventPhoto(id: string): Promise<void> {
+  try {
+    await supabase.from('event_photos').delete().eq('id', id);
+  } catch (err) {
+    console.warn('deleteEventPhoto error:', err);
   }
 }
 

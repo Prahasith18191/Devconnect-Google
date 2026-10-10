@@ -1,385 +1,153 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
-import { AttendeeProfile } from '../../types';
-import { X, Lock, Mail, User, Building, Briefcase, ArrowRight, Check, Users, Sparkles } from 'lucide-react';
+import { X, Lock, Mail, User, Building, Briefcase, ArrowRight, Camera } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  attendees?: AttendeeProfile[];
-  onAuthSuccess: (userProfile: {
-    id: string;
-    fullName: string;
-    email: string;
-    headline: string;
-    company: string;
-    avatarUrl?: string;
-  }) => void;
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({
-  isOpen,
-  onClose,
-  attendees = [],
-  onAuthSuccess,
-}) => {
-  const [mode, setMode] = useState<'login' | 'register' | 'switch_persona'>('login');
+/** Real Supabase email/password auth. Register uploads an optional profile photo to the
+ *  `avatars` bucket and fills the profile; the App's auth listener loads the session. */
+export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
+  const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [company, setCompany] = useState('');
   const [headline, setHeadline] = useState('');
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
 
-  // Extract clean name from email if not provided
-  const deriveNameFromEmail = (rawEmail: string) => {
-    const part = rawEmail.split('@')[0] || 'Attendee';
-    return part
-      .replace(/[._-]/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase());
+  const onPickPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0] || null;
+    setAvatarFile(f);
+    setAvatarPreview(f ? URL.createObjectURL(f) : null);
+  };
+
+  const uploadAvatar = async (userId: string): Promise<string | null> => {
+    if (!avatarFile) return null;
+    const ext = (avatarFile.name.split('.').pop() || 'jpg').toLowerCase();
+    const path = `${userId}/avatar-${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from('avatars').upload(path, avatarFile, { upsert: true });
+    if (upErr) { console.warn('avatar upload', upErr.message); return null; }
+    return supabase.storage.from('avatars').getPublicUrl(path).data.publicUrl;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setErrorMessage(null);
-
+    setLoading(true); setError(null); setNotice(null);
     try {
       if (mode === 'register') {
-        const cleanName = fullName.trim() || deriveNameFromEmail(email);
-        const cleanHeadline = headline.trim() || 'Software Engineer · AI Builder';
-        const cleanCompany = company.trim() || 'Tech Community';
-
-        const { data, error } = await supabase.auth.signUp({
-          email: email.trim(),
-          password,
-          options: {
-            data: {
-              full_name: cleanName,
-              company: cleanCompany,
-              headline: cleanHeadline,
-            },
-          },
+        const name = fullName.trim();
+        const { data, error: signErr } = await supabase.auth.signUp({
+          email: email.trim(), password,
+          options: { data: { full_name: name, company: company.trim(), headline: headline.trim() } },
         });
+        if (signErr) { setError(signErr.message); return; }
 
-        if (error) {
-          console.warn('Supabase Auth Notice:', error.message);
+        // Establish a session (works when email confirmation is OFF)
+        let session = data.session;
+        if (!session) {
+          const { data: li } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+          session = li.session;
         }
-
-        const userId = data?.user?.id || `usr-${Date.now()}`;
-        onAuthSuccess({
-          id: userId,
-          fullName: cleanName,
-          email: email.trim(),
-          headline: cleanHeadline,
-          company: cleanCompany,
-          avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=256&h=256&q=80',
-        });
-        onClose();
+        if (!session?.user) {
+          setNotice('Account created. Please confirm your email, then sign in.');
+          setMode('login'); return;
+        }
+        const avatarUrl = await uploadAvatar(session.user.id);
+        await supabase.from('profiles').update({
+          full_name: name, company: company.trim(), headline: headline.trim(),
+          ...(avatarUrl ? { avatar_url: avatarUrl } : {}),
+        }).eq('id', session.user.id);
+        onClose(); // App's onAuthStateChange loads the profile
       } else {
-        // Sign In Flow
-        const cleanEmail = email.trim().toLowerCase();
-
-        // 1. Try to find a matching attendee in existing database attendees
-        const matchedAttendee = attendees.find(
-          (a) =>
-            a.fullName.toLowerCase().includes(cleanEmail.split('@')[0]) ||
-            a.company.toLowerCase().includes(cleanEmail.split('@')[0])
-        );
-
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: cleanEmail,
-          password,
-        });
-
-        if (error) {
-          console.warn('Supabase Login Notice:', error.message);
-        }
-
-        if (matchedAttendee) {
-          // Logged in as matching attendee
-          onAuthSuccess({
-            id: matchedAttendee.id,
-            fullName: matchedAttendee.fullName,
-            email: cleanEmail,
-            headline: matchedAttendee.headline,
-            company: matchedAttendee.company,
-            avatarUrl: matchedAttendee.avatarUrl,
-          });
-        } else if (data?.user) {
-          // Logged in with Supabase auth metadata
-          const metaName = data.user.user_metadata?.full_name || deriveNameFromEmail(cleanEmail);
-          onAuthSuccess({
-            id: data.user.id,
-            fullName: metaName,
-            email: cleanEmail,
-            headline: data.user.user_metadata?.headline || 'Developer & Builder',
-            company: data.user.user_metadata?.company || 'DevConnect AI Community',
-          });
-        } else {
-          // Direct login fallback without defaulting to Prahasith
-          const derivedName = deriveNameFromEmail(cleanEmail);
-          onAuthSuccess({
-            id: `usr-${Date.now()}`,
-            fullName: derivedName,
-            email: cleanEmail,
-            headline: 'Software Engineer',
-            company: 'Independent Builder',
-          });
-        }
+        const { error: liErr } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+        if (liErr) { setError(liErr.message === 'Invalid login credentials' ? 'Incorrect email or password.' : liErr.message); return; }
         onClose();
       }
     } catch (err: any) {
-      setErrorMessage(err?.message || 'Authentication error. Please try again.');
+      setError(err?.message || 'Authentication error. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSelectPersona = (attendee: AttendeeProfile) => {
-    onAuthSuccess({
-      id: attendee.id,
-      fullName: attendee.fullName,
-      email: `${attendee.fullName.toLowerCase().replace(/\s+/g, '.')}@example.com`,
-      headline: attendee.headline,
-      company: attendee.company,
-      avatarUrl: attendee.avatarUrl,
-    });
-    onClose();
-  };
+  const inputCls = 'w-full pl-9 pr-3 py-2.5 glass-input rounded-xl text-sm';
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="glass-panel border-white/20 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 bg-[#060a14]/95 shadow-2xl relative max-h-[90vh] overflow-y-auto"
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-white/10"
-        >
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
+      <motion.div initial={{ opacity: 0, scale: 0.96, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
+        className="ag-card w-full max-w-md p-7 sm:p-8 relative max-h-[92vh] overflow-y-auto">
+        <button onClick={onClose} className="absolute top-5 right-5 p-2 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-full hover:bg-[var(--ag-surface)]">
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header */}
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-[11px] font-mono">
-            <Sparkles className="w-3 h-3 text-amber-300" />
-            <span>Supabase Auth & Profiles</span>
-          </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            {mode === 'login'
-              ? 'Sign In to DevConnect'
-              : mode === 'register'
-              ? 'Register as Attendee'
-              : 'Choose Persona to Test'}
-          </h2>
-          <p className="text-xs text-zinc-400">
-            {mode === 'login'
-              ? 'Enter your credentials, or choose an attendee profile below.'
-              : mode === 'register'
-              ? 'Create your custom profile for Build with AI Hyderabad.'
-              : 'Switch between live attendees to test connection requests and direct messaging.'}
-          </p>
+        <h2 className="ag-display text-2xl font-bold text-[var(--ag-text)]">
+          {mode === 'login' ? 'Welcome back' : 'Join DevConnect'}
+        </h2>
+        <p className="text-sm text-[var(--ag-muted)] mt-1 mb-6">
+          {mode === 'login' ? 'Sign in to network at Build with AI, Hyderabad.' : 'Create your attendee profile to connect & chat.'}
+        </p>
+
+        <div className="flex p-1 rounded-full bg-[var(--ag-surface)] border border-[var(--ag-border)] text-sm mb-6">
+          {(['login', 'register'] as const).map((m) => (
+            <button key={m} type="button" onClick={() => { setMode(m); setError(null); setNotice(null); }}
+              className={`flex-1 py-2 rounded-full font-medium transition-all ${mode === m ? 'bg-[var(--ag-card)] text-[var(--ag-text)] shadow-sm' : 'text-[var(--ag-muted)]'}`}>
+              {m === 'login' ? 'Sign in' : 'Register'}
+            </button>
+          ))}
         </div>
 
-        {/* Mode Selector Tabs */}
-        <div className="flex items-center p-1 rounded-xl bg-white/[0.04] border border-white/10 text-xs">
-          <button
-            type="button"
-            onClick={() => setMode('login')}
-            className={`flex-1 py-2 text-center rounded-lg transition-all font-medium ${
-              mode === 'login'
-                ? 'bg-white text-black font-semibold shadow-sm'
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            Sign In
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode('register')}
-            className={`flex-1 py-2 text-center rounded-lg transition-all font-medium ${
-              mode === 'register'
-                ? 'bg-white text-black font-semibold shadow-sm'
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            Register
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode('switch_persona')}
-            className={`flex-1 py-2 text-center rounded-lg transition-all font-medium flex items-center justify-center gap-1.5 ${
-              mode === 'switch_persona'
-                ? 'bg-white text-black font-semibold shadow-sm'
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5" />
-            <span>Attendee Personas</span>
-          </button>
-        </div>
+        {error && <div className="mb-4 p-3 rounded-xl bg-[#fce8e6] text-[#c5221f] text-sm">{error}</div>}
+        {notice && <div className="mb-4 p-3 rounded-xl bg-[#e6f4ea] text-[#137333] text-sm">{notice}</div>}
 
-        {errorMessage && (
-          <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-200 text-xs">
-            {errorMessage}
-          </div>
-        )}
-
-        {/* Mode 1 & 2: Form */}
-        {mode !== 'switch_persona' ? (
-          <form onSubmit={handleSubmit} className="space-y-3.5">
-            {mode === 'register' && (
-              <>
-                <div className="space-y-1">
-                  <label className="text-xs font-medium text-zinc-300">Your Full Name</label>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      required
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="e.g. Vikram Malhotra"
-                      className="w-full pl-9 pr-3 py-2.5 glass-input rounded-xl text-xs placeholder-zinc-500"
-                    />
-                  </div>
+        <form onSubmit={handleSubmit} className="space-y-3.5">
+          {mode === 'register' && (
+            <>
+              <div className="flex items-center gap-4">
+                <button type="button" onClick={() => fileRef.current?.click()}
+                  className="relative w-16 h-16 rounded-full border border-[var(--ag-border)] bg-[var(--ag-surface)] overflow-hidden grid place-items-center shrink-0 hover:border-[var(--ag-border-strong)]">
+                  {avatarPreview ? <img src={avatarPreview} alt="" className="w-full h-full object-cover" />
+                    : <Camera className="w-5 h-5 text-[var(--ag-faint)]" />}
+                </button>
+                <div className="text-xs text-[var(--ag-muted)]">
+                  <button type="button" onClick={() => fileRef.current?.click()} className="font-semibold text-[var(--ag-text)] underline">Upload a profile photo</button>
+                  <div>JPG/PNG · optional</div>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-zinc-300">Company / College</label>
-                    <div className="relative">
-                      <Building className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        required
-                        value={company}
-                        onChange={(e) => setCompany(e.target.value)}
-                        placeholder="e.g. Google Cloud / Tech"
-                        className="w-full pl-9 pr-3 py-2.5 glass-input rounded-xl text-xs placeholder-zinc-500"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-zinc-300">Headline / Role</label>
-                    <div className="relative">
-                      <Briefcase className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={headline}
-                        onChange={(e) => setHeadline(e.target.value)}
-                        placeholder="e.g. AI Engineer"
-                        className="w-full pl-9 pr-3 py-2.5 glass-input rounded-xl text-xs placeholder-zinc-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-zinc-300">Email Address</label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your.email@company.com"
-                  className="w-full pl-9 pr-3 py-2.5 glass-input rounded-xl text-xs placeholder-zinc-500"
-                />
+                <input ref={fileRef} type="file" accept="image/*" onChange={onPickPhoto} className="hidden" />
               </div>
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-zinc-300">Password</label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 glass-input rounded-xl text-xs placeholder-zinc-500"
-                />
+              <Field icon={User}><input required value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" className={inputCls} /></Field>
+              <div className="grid grid-cols-2 gap-2">
+                <Field icon={Building}><input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company / college" className={inputCls} /></Field>
+                <Field icon={Briefcase}><input value={headline} onChange={(e) => setHeadline(e.target.value)} placeholder="Role / headline" className={inputCls} /></Field>
               </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 bg-white text-black hover:bg-zinc-200 font-semibold text-xs rounded-xl transition-all shadow-md mt-2 flex items-center justify-center gap-2"
-            >
-              <span>{loading ? 'Authenticating...' : mode === 'login' ? 'Sign In' : 'Create Attendee Account'}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
-        ) : (
-          /* Mode 3: Persona Selection */
-          <div className="space-y-3">
-            <p className="text-xs text-zinc-400">
-              Select any attendee from the database to sign in and interact from their account:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[340px] overflow-y-auto pr-1">
-              {attendees.map((attendee) => (
-                <div
-                  key={attendee.id}
-                  onClick={() => handleSelectPersona(attendee)}
-                  className="glass-panel glass-panel-hover p-3 rounded-2xl flex items-center gap-3 cursor-pointer border-white/10 hover:border-white/30 text-left transition-all group"
-                >
-                  <img
-                    src={attendee.avatarUrl}
-                    alt={attendee.fullName}
-                    className="w-10 h-10 rounded-full object-cover shrink-0 border border-white/20"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs font-semibold text-white truncate group-hover:text-zinc-200">
-                      {attendee.fullName}
-                    </div>
-                    <div className="text-[11px] text-zinc-400 truncate">
-                      {attendee.company}
-                    </div>
-                    <div className="text-[10px] text-zinc-500 font-mono truncate">
-                      {attendee.jobTitle}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Footer Quick Links */}
-        <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-xs text-zinc-400">
-          {mode !== 'switch_persona' ? (
-            <button
-              type="button"
-              onClick={() => setMode('switch_persona')}
-              className="hover:text-white transition-colors"
-            >
-              Want to test as another attendee? <strong className="text-white underline">Switch Persona</strong>
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setMode('login')}
-              className="hover:text-white transition-colors"
-            >
-              Back to <strong className="text-white underline">Standard Login</strong>
-            </button>
+            </>
           )}
-        </div>
+          <Field icon={Mail}><input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" className={inputCls} /></Field>
+          <Field icon={Lock}><input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className={inputCls} /></Field>
+
+          <button type="submit" disabled={loading} className="ag-btn-dark w-full py-3 text-sm font-semibold inline-flex items-center justify-center gap-2 mt-1 disabled:opacity-60">
+            {loading ? 'Please wait…' : mode === 'login' ? 'Sign in' : 'Create account'} <ArrowRight className="w-4 h-4" />
+          </button>
+        </form>
       </motion.div>
     </div>
   );
 };
+
+const Field: React.FC<{ icon: React.ComponentType<{ className?: string }>; children: React.ReactNode }> = ({ icon: Icon, children }) => (
+  <div className="relative">
+    <Icon className="w-4 h-4 text-[var(--ag-faint)] absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+    {children}
+  </div>
+);

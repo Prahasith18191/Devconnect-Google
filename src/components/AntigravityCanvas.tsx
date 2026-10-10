@@ -111,12 +111,12 @@ export const AntigravityCanvas: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {/* Deep Obsidian Backdrop */}
-      <div className="absolute inset-0 bg-[#030712]" />
+      <div className="absolute inset-0 bg-[var(--ag-bg)]" />
 
       {/* Ambient Gradient Glows (Monochrome & Subtle Cyan/Indigo) */}
-      <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-white/[0.04] via-blue-500/[0.03] to-transparent rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] bg-gradient-to-bl from-cyan-400/[0.02] via-white/[0.02] to-transparent rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute -bottom-40 left-1/3 w-[700px] h-[700px] bg-gradient-to-t from-white/[0.03] to-transparent rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-[var(--ag-bg)]/[0.04] via-blue-500/[0.03] to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] bg-gradient-to-bl from-cyan-400/[0.02] via-[var(--ag-bg)]/[0.02] to-transparent rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-40 left-1/3 w-[700px] h-[700px] bg-gradient-to-t from-[var(--ag-bg)]/[0.03] to-transparent rounded-full blur-[150px] pointer-events-none" />
 
       {/* Floating Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-70" />

@@ -79,8 +79,8 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
               onClick={() => setActiveFrameIndex(idx)}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap transition-colors ${
                 activeFrameIndex === idx
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-blue-600 text-[var(--ag-text)] shadow-xs'
+                  : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-800'
               }`}
             >
               <span className="font-mono text-[10px] text-blue-200">{frame.frameCode}</span>
@@ -97,8 +97,8 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
               onClick={() => setDeviceMode('desktop')}
               className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                 deviceMode === 'desktop'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-800 text-[var(--ag-text)]'
+                  : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
               }`}
               title="1440px Desktop View"
             >
@@ -109,8 +109,8 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
               onClick={() => setDeviceMode('mobile')}
               className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                 deviceMode === 'mobile'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-800 text-[var(--ag-text)]'
+                  : 'text-[var(--ag-muted)] hover:text-[var(--ag-text)]'
               }`}
               title="390px Mobile View"
             >
@@ -125,7 +125,7 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
               showInspector
                 ? 'bg-indigo-950/70 border-indigo-700 text-indigo-300'
-                : 'bg-slate-900 border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800'
+                : 'bg-slate-900 border-slate-700 text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-800'
             }`}
           >
             <Code className="w-3.5 h-3.5" />
@@ -146,10 +146,10 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
             }`}
           >
             {/* Viewport Frame Badge */}
-            <div className="bg-slate-950/80 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <div className="bg-slate-950/80 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono text-[var(--ag-muted)]">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                <span className="font-semibold text-slate-200">{currentFrame.frameCode}</span>
+                <span className="font-semibold text-[var(--ag-text)]">{currentFrame.frameCode}</span>
                 <span>· {currentFrame.name}</span>
               </div>
               <div>
@@ -178,7 +178,7 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
 
               {activeFrameIndex === 2 && (
                 <div className="p-8">
-                  <div className="text-center py-6 text-slate-400 text-xs">
+                  <div className="text-center py-6 text-[var(--ag-muted)] text-xs">
                     Profile Showcase Frame Modal (Click below to preview or inspect in Directory)
                   </div>
                   <FrameProfile
@@ -235,16 +235,16 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
           <div className="w-96 border-l border-slate-800 bg-slate-900 flex flex-col shrink-0 overflow-y-auto">
             <div className="p-4 border-b border-slate-800 flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
+                <h4 className="text-sm font-bold text-[var(--ag-text)] flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-blue-400" />
                   <span>Stitch Frame Spec</span>
                 </h4>
-                <p className="text-[11px] text-slate-400 font-mono mt-0.5">{currentFrame.frameCode}</p>
+                <p className="text-[11px] text-[var(--ag-muted)] font-mono mt-0.5">{currentFrame.frameCode}</p>
               </div>
 
               <button
                 onClick={handleCopyPrompt}
-                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-[var(--ag-text)] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
               >
                 {copiedPrompt ? (
                   <>
@@ -263,30 +263,30 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
             <div className="p-4 space-y-4 text-xs">
               {/* Purpose */}
               <div className="space-y-1">
-                <span className="text-slate-400 font-mono text-[10px] uppercase">Purpose</span>
-                <p className="text-slate-200 bg-slate-950 p-3 rounded-lg border border-slate-800 leading-relaxed">
+                <span className="text-[var(--ag-muted)] font-mono text-[10px] uppercase">Purpose</span>
+                <p className="text-[var(--ag-text)] bg-slate-950 p-3 rounded-lg border border-slate-800 leading-relaxed">
                   {currentFrame.purpose}
                 </p>
               </div>
 
               {/* Design Tokens */}
               <div className="space-y-2">
-                <span className="text-slate-400 font-mono text-[10px] uppercase">Design Tokens</span>
+                <span className="text-[var(--ag-muted)] font-mono text-[10px] uppercase">Design Tokens</span>
                 <div className="space-y-1 bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-[11px]">
-                  <div className="text-slate-300">
-                    <span className="text-slate-500">Bg: </span>
+                  <div className="text-[var(--ag-muted)]">
+                    <span className="text-[var(--ag-faint)]">Bg: </span>
                     {currentFrame.designTokens.background}
                   </div>
-                  <div className="text-slate-300">
-                    <span className="text-slate-500">Surfaces: </span>
+                  <div className="text-[var(--ag-muted)]">
+                    <span className="text-[var(--ag-faint)]">Surfaces: </span>
                     {currentFrame.designTokens.surfaces}
                   </div>
-                  <div className="text-slate-300">
-                    <span className="text-slate-500">Accents: </span>
+                  <div className="text-[var(--ag-muted)]">
+                    <span className="text-[var(--ag-faint)]">Accents: </span>
                     {currentFrame.designTokens.accents}
                   </div>
-                  <div className="text-slate-300">
-                    <span className="text-slate-500">Type: </span>
+                  <div className="text-[var(--ag-muted)]">
+                    <span className="text-[var(--ag-faint)]">Type: </span>
                     {currentFrame.designTokens.typography}
                   </div>
                 </div>
@@ -294,10 +294,10 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
 
               {/* Component Hierarchy */}
               <div className="space-y-1.5">
-                <span className="text-slate-400 font-mono text-[10px] uppercase">Components Included</span>
+                <span className="text-[var(--ag-muted)] font-mono text-[10px] uppercase">Components Included</span>
                 <div className="flex flex-wrap gap-1">
                   {currentFrame.targetComponents.map((c) => (
-                    <span key={c} className="text-[11px] font-mono text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+                    <span key={c} className="text-[11px] font-mono text-[var(--ag-muted)] bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
                       &lt;{c} /&gt;
                     </span>
                   ))}
@@ -306,8 +306,8 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
 
               {/* Key Interactions */}
               <div className="space-y-1.5">
-                <span className="text-slate-400 font-mono text-[10px] uppercase">Key Interactions</span>
-                <ul className="space-y-1 text-slate-300 text-[11px] list-disc list-inside">
+                <span className="text-[var(--ag-muted)] font-mono text-[10px] uppercase">Key Interactions</span>
+                <ul className="space-y-1 text-[var(--ag-muted)] text-[11px] list-disc list-inside">
                   {currentFrame.keyInteractions.map((ki, i) => (
                     <li key={i}>{ki}</li>
                   ))}
@@ -317,7 +317,7 @@ export const StitchCanvas: React.FC<StitchCanvasProps> = ({
               {/* Ready-to-Paste Stitch Prompt */}
               <div className="space-y-1.5 pt-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400 font-mono text-[10px] uppercase">Google Stitch / AI Studio Prompt</span>
+                  <span className="text-[var(--ag-muted)] font-mono text-[10px] uppercase">Google Stitch / AI Studio Prompt</span>
                   <button
                     onClick={handleCopyPrompt}
                     className="text-[11px] text-blue-400 hover:text-blue-300 font-mono flex items-center gap-1"

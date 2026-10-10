@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# SPA fallback — serve the app shell for any path so refreshes/deep links work.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

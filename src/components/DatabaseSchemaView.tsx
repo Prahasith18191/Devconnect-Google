@@ -188,17 +188,17 @@ CREATE POLICY "Authorized Conversation Write" ON public.messages
             <Database className="w-3.5 h-3.5" />
             <span>PostgreSQL 15 & Supabase Schema</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ag-text)] tracking-tight">
             Relational Data Model & Row Level Security
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-[var(--ag-muted)] mt-1 max-w-2xl">
             Strict foreign keys, unique constraint invariants, and zero-leakage RLS policies designed for production deployment on Supabase.
           </p>
         </div>
 
         <button
           onClick={handleCopySQL}
-          className="self-start sm:self-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm shrink-0"
+          className="self-start sm:self-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 text-[var(--ag-text)] rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm shrink-0"
         >
           {copiedSQL ? (
             <>
@@ -222,31 +222,31 @@ CREATE POLICY "Authorized Conversation Write" ON public.messages
             onClick={() => setSelectedTable(t.name)}
             className={`p-3 rounded-xl text-left border transition-all ${
               selectedTable === t.name
-                ? 'bg-blue-950/60 border-blue-600 text-white'
-                : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-blue-950/60 border-blue-600 text-[var(--ag-text)]'
+                : 'bg-slate-900 border-slate-800 text-[var(--ag-muted)] hover:text-[var(--ag-text)] hover:bg-slate-800'
             }`}
           >
             <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-blue-400">
               <Table className="w-3.5 h-3.5" />
               <span>{t.name}</span>
             </div>
-            <p className="text-[11px] text-slate-400 truncate mt-1">{t.desc}</p>
+            <p className="text-[11px] text-[var(--ag-muted)] truncate mt-1">{t.desc}</p>
           </button>
         ))}
       </div>
 
       {/* SQL DDL Code Viewer */}
       <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xl">
-        <div className="p-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div className="p-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs text-[var(--ag-muted)] font-mono">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span className="text-white font-semibold">schema.sql</span>
+            <span className="text-[var(--ag-text)] font-semibold">schema.sql</span>
             <span>· PostgreSQL 15+ / Supabase RLS</span>
           </div>
 
           <div className="flex items-center gap-2 text-[11px]">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-emerald-400">RLS Policies Attached</span>
+            <ShieldCheck className="w-3.5 h-3.5 text-[var(--g-green)]" />
+            <span className="text-[var(--g-green)]">RLS Policies Attached</span>
           </div>
         </div>
 

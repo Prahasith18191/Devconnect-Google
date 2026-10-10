@@ -21,7 +21,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg hover:bg-slate-800 transition-colors z-10"
         >
           <X className="w-5 h-5" />
         </button>
@@ -44,13 +44,13 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold text-white">{profile.fullName}</h2>
+                <h2 className="text-xl font-bold text-[var(--ag-text)]">{profile.fullName}</h2>
                 {profile.isVerified && (
                   <CheckCircle2 className="w-4 h-4 text-blue-400" />
                 )}
               </div>
-              <p className="text-xs font-medium text-slate-300 mt-0.5">{profile.headline}</p>
-              <p className="text-xs text-slate-400">{profile.company} · {profile.experienceYears} Years Exp ({profile.experienceLevel})</p>
+              <p className="text-xs font-medium text-[var(--ag-muted)] mt-0.5">{profile.headline}</p>
+              <p className="text-xs text-[var(--ag-muted)]">{profile.company} · {profile.experienceYears} Years Exp ({profile.experienceLevel})</p>
             </div>
 
             {/* Social Links */}
@@ -60,7 +60,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
                   href={profile.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg border border-slate-700 transition-colors"
+                  className="p-2 bg-slate-800 hover:bg-slate-700 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg border border-slate-700 transition-colors"
                 >
                   <Github className="w-4 h-4" />
                 </a>
@@ -70,7 +70,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
                   href={profile.linkedinUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg border border-slate-700 transition-colors"
+                  className="p-2 bg-slate-800 hover:bg-slate-700 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg border border-slate-700 transition-colors"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -80,7 +80,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
                   href={profile.websiteUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg border border-slate-700 transition-colors"
+                  className="p-2 bg-slate-800 hover:bg-slate-700 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg border border-slate-700 transition-colors"
                 >
                   <Globe className="w-4 h-4" />
                 </a>
@@ -90,10 +90,10 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
 
           {/* Bio */}
           <div className="space-y-1.5">
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">
+            <h3 className="text-xs font-semibold text-[var(--ag-muted)] uppercase tracking-wider font-mono">
               Professional Biography
             </h3>
-            <p className="text-sm text-slate-200 leading-relaxed bg-slate-800/40 p-3.5 rounded-xl border border-slate-800">
+            <p className="text-sm text-[var(--ag-text)] leading-relaxed bg-slate-800/40 p-3.5 rounded-xl border border-slate-800">
               {profile.bio}
             </p>
           </div>
@@ -101,14 +101,14 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
           {/* Skills & Learning Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2 bg-slate-800/30 p-4 rounded-xl border border-slate-800">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+              <div className="flex items-center gap-2 text-xs font-semibold text-[var(--ag-muted)]">
                 <Briefcase className="w-3.5 h-3.5 text-blue-400" />
                 <span>Core Technical Skills</span>
               </div>
-              <div className="text-xs text-slate-300 leading-relaxed">
+              <div className="text-xs text-[var(--ag-muted)] leading-relaxed">
                 {profile.skills.map((skill, idx, arr) => (
                   <span key={skill}>
-                    <strong className="text-white font-medium">{skill}</strong>
+                    <strong className="text-[var(--ag-text)] font-medium">{skill}</strong>
                     {idx < arr.length - 1 && <span className="mx-1.5 text-slate-600">·</span>}
                   </span>
                 ))}
@@ -116,14 +116,14 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
             </div>
 
             <div className="space-y-2 bg-slate-800/30 p-4 rounded-xl border border-slate-800">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
-                <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-[var(--ag-muted)]">
+                <GraduationCap className="w-3.5 h-3.5 text-[var(--g-green)]" />
                 <span>Currently Exploring & Learning</span>
               </div>
-              <div className="text-xs text-slate-300 leading-relaxed">
+              <div className="text-xs text-[var(--ag-muted)] leading-relaxed">
                 {profile.learning.map((item, idx, arr) => (
                   <span key={item}>
-                    <span className="text-emerald-300">{item}</span>
+                    <span className="text-[var(--g-green)]">{item}</span>
                     {idx < arr.length - 1 && <span className="mx-1.5 text-slate-600">·</span>}
                   </span>
                 ))}
@@ -134,7 +134,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
           {/* Featured Projects / Code Repo */}
           {profile.projects && profile.projects.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">
+              <h3 className="text-xs font-semibold text-[var(--ag-muted)] uppercase tracking-wider font-mono">
                 Bootcamp Builds & Projects
               </h3>
               <div className="space-y-2">
@@ -144,8 +144,8 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
                     className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-start justify-between gap-3"
                   >
                     <div>
-                      <h4 className="text-sm font-semibold text-white">{proj.title}</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">{proj.desc}</p>
+                      <h4 className="text-sm font-semibold text-[var(--ag-text)]">{proj.title}</h4>
+                      <p className="text-xs text-[var(--ag-muted)] mt-0.5">{proj.desc}</p>
                     </div>
                     <span className="text-xs text-blue-400 flex items-center gap-1 font-mono shrink-0">
                       <span>GitHub</span>
@@ -159,8 +159,8 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
 
           {/* Footer Action */}
           <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">
-              Status: <span className="text-white">{profile.connectionStatus.replace('_', ' ')}</span>
+            <span className="text-xs text-[var(--ag-muted)] font-mono">
+              Status: <span className="text-[var(--ag-text)]">{profile.connectionStatus.replace('_', ' ')}</span>
             </span>
 
             {profile.connectionStatus === 'connected' ? (
@@ -169,7 +169,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
                   onClose();
                   onNavigateToChat(profile.id);
                 }}
-                className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center gap-2 transition-colors"
+                className="px-4 py-2 text-xs font-semibold text-[var(--ag-text)] bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>Open Direct Messages</span>
@@ -180,7 +180,7 @@ export const FrameProfile: React.FC<FrameProfileProps> = ({
                   onSendConnectionRequest(profile.id, "Hey! Let's connect at Build with AI Hyderabad.");
                   onClose();
                 }}
-                className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center gap-2 transition-colors"
+                className="px-4 py-2 text-xs font-semibold text-[var(--ag-text)] bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>Send Connection Request</span>

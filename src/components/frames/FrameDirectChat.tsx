@@ -47,20 +47,20 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
       <div className="w-full md:w-80 border-r border-slate-800 bg-slate-950/60 flex flex-col shrink-0">
         <div className="p-4 border-b border-slate-800 space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white">Direct Messages</h3>
-            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
+            <h3 className="text-sm font-bold text-[var(--ag-text)]">Direct Messages</h3>
+            <span className="text-[11px] font-mono text-[var(--g-green)] bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
               {connectedPeers.length} Connected
             </span>
           </div>
 
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[var(--ag-muted)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchPeer}
               onChange={(e) => setSearchPeer(e.target.value)}
               placeholder="Filter connections..."
-              className="w-full pl-8 pr-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full pl-8 pr-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-[var(--ag-text)] placeholder-slate-500 focus:outline-none focus:border-blue-500"
             />
           </div>
         </div>
@@ -68,7 +68,7 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
         {/* Peer List */}
         <div className="flex-1 overflow-y-auto divide-y divide-slate-800/60">
           {filteredPeers.length === 0 ? (
-            <div className="p-6 text-center text-xs text-slate-500">
+            <div className="p-6 text-center text-xs text-[var(--ag-faint)]">
               No accepted connections yet. Connect with attendees in the directory to unlock 1-on-1 messaging.
             </div>
           ) : (
@@ -89,11 +89,11 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
                   />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-white truncate">{peer.fullName}</span>
-                      <span className="text-[10px] text-slate-500 font-mono">10:09 AM</span>
+                      <span className="text-xs font-semibold text-[var(--ag-text)] truncate">{peer.fullName}</span>
+                      <span className="text-[10px] text-[var(--ag-faint)] font-mono">10:09 AM</span>
                     </div>
-                    <p className="text-[11px] text-slate-400 truncate mt-0.5">{peer.company}</p>
-                    <p className="text-[11px] text-slate-300 truncate mt-1">
+                    <p className="text-[11px] text-[var(--ag-muted)] truncate mt-0.5">{peer.company}</p>
+                    <p className="text-[11px] text-[var(--ag-muted)] truncate mt-1">
                       {isSelected ? 'Active conversation' : 'Let\'s grab coffee during lunch...'}
                     </p>
                   </div>
@@ -114,7 +114,7 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
                 {onBackToDirectory && (
                   <button
                     onClick={onBackToDirectory}
-                    className="md:hidden p-1.5 text-slate-400 hover:text-white rounded-lg bg-slate-800"
+                    className="md:hidden p-1.5 text-[var(--ag-muted)] hover:text-[var(--ag-text)] rounded-lg bg-slate-800"
                   >
                     <ArrowLeft className="w-4 h-4" />
                   </button>
@@ -126,17 +126,17 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
                 />
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h4 className="text-sm font-bold text-white">{activePeer.fullName}</h4>
-                    <span className="flex items-center gap-1 text-[11px] text-emerald-400 font-mono">
+                    <h4 className="text-sm font-bold text-[var(--ag-text)]">{activePeer.fullName}</h4>
+                    <span className="flex items-center gap-1 text-[11px] text-[var(--g-green)] font-mono">
                       <CheckCircle2 className="w-3 h-3" />
                       <span>Connected</span>
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 truncate max-w-md">{activePeer.headline}</p>
+                  <p className="text-xs text-[var(--ag-muted)] truncate max-w-md">{activePeer.headline}</p>
                 </div>
               </div>
 
-              <div className="hidden sm:block text-xs font-mono text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
+              <div className="hidden sm:block text-xs font-mono text-[var(--ag-muted)] bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
                 End-to-End Authorized
               </div>
             </div>
@@ -144,7 +144,7 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
             {/* Messages Scroll Area */}
             <div className="flex-1 p-4 sm:p-6 space-y-4 overflow-y-auto">
               <div className="text-center my-2">
-                <span className="text-[11px] font-mono text-slate-500 bg-slate-800/40 px-3 py-1 rounded-full border border-slate-800">
+                <span className="text-[11px] font-mono text-[var(--ag-faint)] bg-slate-800/40 px-3 py-1 rounded-full border border-slate-800">
                   Bootcamp Session: Today, October 10
                 </span>
               </div>
@@ -165,13 +165,13 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
                     <div
                       className={`p-3 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                         msg.isSelf
-                          ? 'bg-blue-600 text-white rounded-tr-none'
-                          : 'bg-slate-800 text-slate-100 rounded-tl-none border border-slate-700/80'
+                          ? 'bg-blue-600 text-[var(--ag-text)] rounded-tr-none'
+                          : 'bg-slate-800 text-[var(--ag-text)] rounded-tl-none border border-slate-700/80'
                       }`}
                     >
                       {msg.content}
                     </div>
-                    <div className="text-[10px] text-slate-500 font-mono px-1 tabular-nums">
+                    <div className="text-[10px] text-[var(--ag-faint)] font-mono px-1 tabular-nums">
                       {msg.timestamp}
                     </div>
                   </div>
@@ -187,12 +187,12 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder={`Send private message to ${activePeer.fullName.split(' ')[0]}...`}
-                  className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-[var(--ag-text)] placeholder-slate-500 focus:outline-none focus:border-blue-500"
                 />
                 <button
                   type="submit"
                   disabled={!inputText.trim()}
-                  className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:hover:bg-blue-600 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
+                  className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:hover:bg-blue-600 text-[var(--ag-text)] rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
                 >
                   <span>Send</span>
                   <Send className="w-3.5 h-3.5" />
@@ -201,9 +201,9 @@ export const FrameDirectChat: React.FC<FrameDirectChatProps> = ({
             </form>
           </>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400">
-            <h4 className="text-base font-semibold text-white">No active conversation</h4>
-            <p className="text-xs text-slate-400 mt-1 max-w-xs">
+          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-[var(--ag-muted)]">
+            <h4 className="text-base font-semibold text-[var(--ag-text)]">No active conversation</h4>
+            <p className="text-xs text-[var(--ag-muted)] mt-1 max-w-xs">
               Select an accepted connection from the sidebar or request to connect in the directory.
             </p>
           </div>
