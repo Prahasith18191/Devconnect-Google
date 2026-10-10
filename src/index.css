@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Roboto Mono', ui-monospace, SFMono-Regular, monospace;
+    --color-google-blue: #1a73e8;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    background-color: #0b1329;
+    color: #f8fafc;
+    overflow-x: hidden;
+    letter-spacing: -0.011em;
+  }
+}
+
+/* Glassmorphic Surfaces with Specular Rim Highlights */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+.glass-panel-hover {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(20, 32, 58, 0.85);
+  border-color: rgba(26, 115, 232, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.65), 0 0 20px 0 rgba(26, 115, 232, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-input {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+.glass-input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.25);
+  outline: none;
+}
+
+/* Google Blue buttons & accents */
+.btn-google-blue {
+  background-color: #1a73e8;
+  color: #ffffff;
+  transition: all 0.18s ease;
+}
+.btn-google-blue:hover {
+  background-color: #1557b0;
+  box-shadow: 0 0 20px rgba(26, 115, 232, 0.35);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(11, 19, 41, 0.9);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
